@@ -14,9 +14,9 @@
 
 Documento técnico del proyecto
 
-**Estudiante:** [Nombre completo del estudiante]<br>
-**Docente:** [Nombre del docente]<br>
-**Ciudad:** [Ciudad]<br>
+**Estudiante:** Miguel Ángel Maldonado Mosquera<br>
+**Docente:** Veronica Castro Munar<br>
+**Ciudad:** Bogotá<br>
 **Año:** 2026
 
 <div style="page-break-after: always;"></div>
@@ -307,7 +307,7 @@ Las capturas completas están en [Capturas](./Capturas/). Incluyen Inicio, CRUD,
 
 ## 13. Recomendaciones
 
-- Completar la portada con los datos académicos y personales antes de exportar.
+- Revisar los datos de portada antes de exportar.
 - Confirmar e instalar la instancia `.\SQL2022` requerida para la demostración académica o documentar el servidor asignado.
 - Ejecutar los scripts SQL y repetir la matriz de pruebas en el mismo equipo que se usará para sustentar.
 - Exportar este documento a PDF, revisar la tabla de contenido, la numeración automática y los saltos de página.
@@ -316,7 +316,7 @@ Las capturas completas están en [Capturas](./Capturas/). Incluyen Inicio, CRUD,
 
 ## 14. Referencias
 
-ACA — Programación Avanzada. (2026). *Sistema de gestión de biblioteca* [Consigna del proyecto, documento PDF facilitado en el curso].
+ACA — Programación Avanzada. (2026). *Sistema de gestión de biblioteca*.
 
 Chacon, S., & Straub, B. (2014). *Pro Git* (2.ª ed.). Apress. https://git-scm.com/book/en/v2
 
@@ -332,5 +332,5 @@ Proyecto académico de ACA — Programación Avanzada<br>
 Código fuente, scripts, documentación, pruebas y evidencia visual:<br>
 <https://github.com/MiguelMaldonado96/SistemaGestionBiblioteca>
 
-**Estudiante:** [Nombre completo del estudiante]<br>
+**Estudiante:** Miguel Ángel Maldonado Mosquera<br>
 **Año:** 2026

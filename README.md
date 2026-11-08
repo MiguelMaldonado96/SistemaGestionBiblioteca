@@ -104,7 +104,6 @@ Están implementados los módulos principales, incluida la búsqueda de libros, 
 
 Pendientes para cerrar la entrega:
 
-- Completar los marcadores de datos personales en la portada y contraportada del documento técnico.
 - Exportar el documento al formato solicitado, actualizar la tabla de contenido y añadir numeración automática de páginas.
 - Verificar la conexión y repetir las pruebas en la instancia que se usará para la entrega: este equipo usa `localhost`, mientras que la consigna de SSMS indica `.\SQL2022`.
 
