@@ -42,6 +42,7 @@ El script inicial y el modelo entidad-relación con diccionario de datos están 
 - `BaseDatos/02_DatosDemostracionCapturas.sql`: agrega de forma repetible 20 usuarios ficticios y 20 libros de autores colombianos para poblar las pantallas.
 - `Documentacion/ModeloDeDatos.md`
 - `Documentacion/GuiaDelCodigo.md`: explica en lenguaje sencillo para qué sirve cada carpeta y archivo del código.
+- `Documentacion/Capturas/`: evidencia visual de los módulos, reportes y registro de una devolución.
 
 Ejecuta `01_CrearBaseDatos.sql` desde SQL Server Management Studio para crear la base de datos e insertar registros de prueba. Para poblar las pantallas con más datos de ejemplo, ejecuta también `02_DatosDemostracionCapturas.sql`.
 
