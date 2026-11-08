@@ -8,6 +8,7 @@ partial class FormularioPrincipal
     /// </summary>
     private System.ComponentModel.IContainer? componentes;
     private Button botonProbarConexion = null!;
+    private Button botonGestionarAutores = null!;
     private Label etiquetaEstadoConexion = null!;
 
     /// <summary>
@@ -33,6 +34,7 @@ partial class FormularioPrincipal
     {
         componentes = new System.ComponentModel.Container();
         botonProbarConexion = new Button();
+        botonGestionarAutores = new Button();
         etiquetaEstadoConexion = new Label();
         SuspendLayout();
         botonProbarConexion.Location = new Point(32, 92);
@@ -41,16 +43,23 @@ partial class FormularioPrincipal
         botonProbarConexion.TabIndex = 0;
         botonProbarConexion.Text = "Probar conexión";
         botonProbarConexion.UseVisualStyleBackColor = true;
+        botonGestionarAutores.Location = new Point(240, 92);
+        botonGestionarAutores.Name = "botonGestionarAutores";
+        botonGestionarAutores.Size = new Size(190, 36);
+        botonGestionarAutores.TabIndex = 1;
+        botonGestionarAutores.Text = "Gestionar autores";
+        botonGestionarAutores.UseVisualStyleBackColor = true;
         etiquetaEstadoConexion.AutoSize = true;
         etiquetaEstadoConexion.Location = new Point(32, 148);
         etiquetaEstadoConexion.Name = "etiquetaEstadoConexion";
         etiquetaEstadoConexion.Size = new Size(222, 15);
         etiquetaEstadoConexion.TabIndex = 1;
-        etiquetaEstadoConexion.Text = "Servidor configurado: .\\SQL2022";
+        etiquetaEstadoConexion.Text = "Servidor de desarrollo: localhost";
         AcceptButton = botonProbarConexion;
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(800, 450);
         Controls.Add(etiquetaEstadoConexion);
+        Controls.Add(botonGestionarAutores);
         Controls.Add(botonProbarConexion);
         MinimumSize = new Size(640, 360);
         Name = "FormularioPrincipal";

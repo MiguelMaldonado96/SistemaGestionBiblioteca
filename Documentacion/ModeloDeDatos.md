@@ -91,7 +91,7 @@ Un libro puede tener varios autores y un autor puede participar en varios libros
 | Prestamos | FechaDevolucionReal | date | No | Fecha efectiva de devolución. |
 | Prestamos | Estado | calculado | Sí | `Prestado` o `Devuelto`, según la fecha real. |
 
-Las claves primarias y foráneas, restricciones de unicidad y validaciones de fechas y existencias se implementan en `BaseDatos/01_CrearBaseDatos.sql`. El registro de un préstamo y la actualización de existencias deberán ejecutarse en una misma transacción desde la capa de datos.
+Las claves primarias y foráneas, restricciones de unicidad y validaciones de fechas y existencias se implementan en `BaseDatos/01_CrearBaseDatos.sql`. La relación entre autores y libros restringe la eliminación de autores relacionados. El registro de un préstamo y la actualización de existencias deberán ejecutarse en una misma transacción desde la capa de datos.
 
 ## Datos de prueba
 

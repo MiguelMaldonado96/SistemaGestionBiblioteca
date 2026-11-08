@@ -86,8 +86,34 @@ BEGIN
         CONSTRAINT FK_LibroAutores_Libros FOREIGN KEY (LibroId)
             REFERENCES dbo.Libros (LibroId) ON DELETE CASCADE,
         CONSTRAINT FK_LibroAutores_Autores FOREIGN KEY (AutorId)
-            REFERENCES dbo.Autores (AutorId) ON DELETE CASCADE
+            REFERENCES dbo.Autores (AutorId)
     );
+END;
+GO
+
+IF EXISTS
+(
+    SELECT 1
+    FROM sys.foreign_keys
+    WHERE name = N'FK_LibroAutores_Autores'
+      AND parent_object_id = OBJECT_ID(N'dbo.LibroAutores')
+      AND delete_referential_action_desc = N'CASCADE'
+)
+BEGIN
+    ALTER TABLE dbo.LibroAutores DROP CONSTRAINT FK_LibroAutores_Autores;
+END;
+
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.foreign_keys
+    WHERE name = N'FK_LibroAutores_Autores'
+      AND parent_object_id = OBJECT_ID(N'dbo.LibroAutores')
+)
+BEGIN
+    ALTER TABLE dbo.LibroAutores
+        ADD CONSTRAINT FK_LibroAutores_Autores
+        FOREIGN KEY (AutorId) REFERENCES dbo.Autores (AutorId);
 END;
 GO
 

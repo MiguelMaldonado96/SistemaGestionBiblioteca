@@ -25,10 +25,10 @@ SistemaGestionBiblioteca/
 - `Datos`: conexión y operaciones con SQL Server.
 - `Entidades`: clases que representan los datos del sistema.
 
-## Módulos previstos
+## Módulos
 
+- Autores: consultar, registrar, actualizar y eliminar, con validación de campos y protección de relaciones.
 - Libros
-- Autores
 - Editoriales
 - Usuarios
 - Préstamos y devoluciones
@@ -83,4 +83,4 @@ dotnet run --project SistemaGestionBiblioteca/SistemaGestionBiblioteca.csproj
 
 ## Estado
 
-En desarrollo. La estructura inicial de la solución y el modelo relacional están definidos. La interfaz, las operaciones de negocio, la conexión a SQL Server y la documentación final se completarán en los siguientes pasos.
+En desarrollo. La conexión local y la base de datos ya están verificadas; el CRUD de autores es el primer módulo implementado. Los módulos restantes y la documentación final se completarán por etapas.
