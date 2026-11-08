@@ -4,10 +4,26 @@ Aplicación de escritorio para administrar la información y los procesos de una
 
 ## Tecnologías
 
-- C#
-- Windows Forms
+- C# y Windows Forms sobre .NET 10
 - SQL Server
 - Git y GitHub
+
+## Estructura
+
+La aplicación inicia como un único proyecto Windows Forms organizado por carpetas:
+
+```text
+SistemaGestionBiblioteca/
+├── Presentacion/
+├── Negocio/
+├── Datos/
+└── Entidades/
+```
+
+- `Presentacion`: formularios y navegación de la aplicación.
+- `Negocio`: reglas y validaciones del sistema.
+- `Datos`: conexión y operaciones con SQL Server.
+- `Entidades`: clases que representan los datos del sistema.
 
 ## Módulos previstos
 
@@ -20,11 +36,29 @@ Aplicación de escritorio para administrar la información y los procesos de una
 
 ## Arquitectura
 
-La solución separará las responsabilidades de presentación, lógica de negocio y acceso a datos. La base de datos relacional almacenará las entidades y sus relaciones, con claves y restricciones de integridad.
+La interfaz, la lógica de negocio y el acceso a datos se mantendrán separados en sus respectivas carpetas. La base de datos relacional almacenará las entidades y sus relaciones, con claves y restricciones de integridad.
 
 ## Convención de nombres
 
-Los nombres de variables serán descriptivos, en español y con formato `camelCase`.
+Los nombres de variables y controles serán descriptivos, en español y con formato `camelCase`.
+
+## Requisitos para ejecutar
+
+- Windows
+- .NET 10 SDK
+- SQL Server (se configurará en una etapa posterior)
+
+Para compilar la solución:
+
+```powershell
+dotnet build SistemaGestionBiblioteca.slnx
+```
+
+Para ejecutar la aplicación:
+
+```powershell
+dotnet run --project SistemaGestionBiblioteca/SistemaGestionBiblioteca.csproj
+```
 
 ## Estado
 
