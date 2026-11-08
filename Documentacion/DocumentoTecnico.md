@@ -1,9 +1,3 @@
-# Sistema de Gestión de Biblioteca
-
->
-
-<div style="page-break-after: always;"></div>
-
 ## Portada
 
 **Corporación Unificada Nacional de Educación Superior (CUN)**<br>

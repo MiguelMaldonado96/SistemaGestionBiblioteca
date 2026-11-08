@@ -94,7 +94,8 @@ dotnet run --project SistemaGestionBiblioteca/SistemaGestionBiblioteca.csproj
 
 - [Guía del código](Documentacion/GuiaDelCodigo.md): explica las capas y los archivos principales.
 - [Modelo de datos](Documentacion/ModeloDeDatos.md): incluye el diagrama entidad-relación y el diccionario de datos.
-- [Documento técnico](Documentacion/DocumentoTecnico.md): reúne los apartados solicitados para la entrega académica.
+- [Documento técnico (Markdown)](Documentacion/DocumentoTecnico.md): fuente editable del informe académico.
+- [Documento técnico (PDF)](Documentacion/DocumentoTecnico.pdf): versión lista para revisar e imprimir, exportada con diagramas y número de página.
 - [Informe de pruebas](Documentacion/InformeDePruebas.md): registra los casos ejecutados, resultados y condiciones pendientes del entorno.
 - [Capturas de pantalla](Documentacion/Capturas/): evidencia de los módulos, reportes y registro de una devolución.
 
@@ -102,9 +103,8 @@ dotnet run --project SistemaGestionBiblioteca/SistemaGestionBiblioteca.csproj
 
 Están implementados los módulos principales, incluida la búsqueda de libros, la base de datos relacional, la arquitectura en capas dentro del proyecto, las validaciones, el manejo de errores en la interfaz y los reportes. El repositorio incluye el documento técnico en Markdown, el informe de pruebas, la guía del código, el modelo de datos y las capturas.
 
-Pendientes para cerrar la entrega:
+Pendiente para cerrar la configuración del entorno:
 
-- Exportar el documento al formato solicitado, actualizar la tabla de contenido y añadir numeración automática de páginas.
-- Verificar la conexión y repetir las pruebas en la instancia que se usará para la entrega: este equipo usa `localhost`, mientras que la consigna de SSMS indica `.\SQL2022`.
+- La instancia SQL Server disponible en este equipo es la predeterminada `MSSQLSERVER` (`localhost`). `.\SQL2022` aún no está instalada; agregarla requiere instalar una segunda instancia y preparar allí la base de datos.
 
 El repositorio contiene el código fuente, los scripts SQL, esta documentación, las capturas y el historial de commits.

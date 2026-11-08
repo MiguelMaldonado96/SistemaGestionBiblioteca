@@ -28,7 +28,7 @@ Registrar verificaciones reproducibles de la compilación, la búsqueda de libro
 | P10 | Conectar a la base local con autenticación integrada. | Consultar la base de desarrollo. | La conexión a `localhost` respondió y permitió leer los conteos de la base. | Aprobada |
 | P11 | Consultar integridad del inventario y relaciones. | Libros con autor y cantidades disponibles coherentes. | 0 libros sin autor y 0 libros con diferencia entre disponibles y total menos préstamos activos. | Aprobada |
 | P12 | Verificar volumen de datos de demostración. | 20 usuarios y 20 libros de demostración, sin duplicados. | 20 usuarios con documento `DEMO-*` y 20 libros con código `COL-*`; la base también conserva el usuario y el libro iniciales. | Aprobada |
-| P13 | Conectar al nombre de instancia que pide la consigna. | Acceder a `.\SQL2022`. | La conexión falló con “Error Locating Server/Instance Specified”; solo se verificó la instancia local predeterminada `localhost`. | Pendiente de entorno |
+| P13 | Conectar al nombre de instancia que pide la consigna. | Acceder a `.\SQL2022`. | La conexión falló con “Error Locating Server/Instance Specified”. El servicio instalado es la instancia predeterminada `MSSQLSERVER`, accesible como `localhost`; no existe un servicio de instancia llamado `SQL2022`. | Pendiente de configuración |
 | P14 | Revisar paquetes con vulnerabilidades conocidas. | Sin paquetes reportados como vulnerables en el proyecto. | `dotnet list ... package --vulnerable --include-transitive` no reportó paquetes vulnerables. | Aprobada |
 
 ## Casos de búsqueda ejecutados
@@ -56,11 +56,11 @@ La devolución se confirma también en las capturas `20-Devolucion-registrada.pn
 
 ## Incidencias y limitaciones
 
-- `.\SQL2022` no está disponible en este equipo. La aplicación conserva `localhost` como conexión de desarrollo. La prueba de `.\SQL2022` debe repetirse después de instalar o confirmar esa instancia en el entorno de entrega.
+- `.\SQL2022` no está disponible en este equipo. Está instalada y activa la instancia predeterminada `MSSQLSERVER`, y la base del proyecto funciona en `localhost`. Para cumplir literalmente la consigna se debe agregar una instancia con nombre `SQL2022`, configurar allí la base y actualizar la conexión; no se cambió la instalación de SQL Server sin autorización.
 - La restauración del harness temporal mostró avisos NuGet `NU1902` y `NU1903` relativos a `System.Security.Cryptography.Pkcs 9.0.18`. La auditoría de paquetes del proyecto real no reportó paquetes vulnerables; los avisos corresponden al restore del harness temporal y no se incorporó ese proyecto al repositorio.
 - Las pruebas de búsqueda validan la lógica usada por la interfaz, pero no sustituyen una prueba de aceptación manual del formulario en el equipo de entrega.
 - La matriz documenta las verificaciones ejecutadas para esta iteración; antes de una entrega definitiva se recomienda repetir los flujos CRUD, préstamos y devoluciones desde la interfaz conectada al servidor final.
 
 ## Conclusión
 
-La compilación, los casos de búsqueda y las verificaciones de consistencia de la base local pasaron. La principal condición pendiente de entorno es confirmar una instancia `.\SQL2022` accesible y validar allí la aplicación antes de la sustentación.
+La compilación, los casos de búsqueda y las verificaciones de consistencia de la base local pasaron. La instancia `.\SQL2022` todavía debe instalarse y configurarse para validar la entrega exactamente en el entorno solicitado.
