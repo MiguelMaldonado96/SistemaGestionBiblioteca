@@ -5,6 +5,9 @@ using SistemaGestionBiblioteca.Negocio;
 
 namespace SistemaGestionBiblioteca.Presentacion;
 
+/// <summary>
+/// Permite consultar y administrar libros, autores, editoriales y existencias.
+/// </summary>
 public sealed class FormularioLibros : Form
 {
     private readonly LibroServicio libroServicio = new(new LibroRepositorio(new ConexionBaseDatos()));
@@ -53,47 +56,47 @@ public sealed class FormularioLibros : Form
         };
 
         var etiquetaCodigo = CrearEtiqueta("Código", 24, 52);
-        PrepararCampo(campoCodigo, "campoCodigo", 24, 74, 200, 20);
+        PrepararCampo(campoCodigo, "campoCodigo", 24, 78, 200, 20);
 
         var etiquetaTituloLibro = CrearEtiqueta("Título", 250, 52);
-        PrepararCampo(campoTitulo, "campoTitulo", 250, 74, 350, 200);
+        PrepararCampo(campoTitulo, "campoTitulo", 250, 78, 350, 200);
 
         var etiquetaIsbn = CrearEtiqueta("ISBN (opcional)", 626, 52);
-        PrepararCampo(campoIsbn, "campoIsbn", 626, 74, 250, 20);
+        PrepararCampo(campoIsbn, "campoIsbn", 626, 78, 250, 20);
 
-        var etiquetaEditorial = CrearEtiqueta("Editorial", 24, 120);
+        var etiquetaEditorial = CrearEtiqueta("Editorial", 24, 126);
         listaEditoriales.DropDownStyle = ComboBoxStyle.DropDownList;
-        listaEditoriales.Location = new Point(24, 142);
+        listaEditoriales.Location = new Point(24, 150);
         listaEditoriales.Name = "listaEditoriales";
         listaEditoriales.Size = new Size(260, 27);
 
-        var etiquetaAnio = CrearEtiqueta("Año de publicación", 310, 120);
-        PrepararCampo(campoAnio, "campoAnio", 310, 142, 130, 4);
+        var etiquetaAnio = CrearEtiqueta("Año de publicación", 310, 126);
+        PrepararCampo(campoAnio, "campoAnio", 310, 150, 150, 4);
 
-        var etiquetaCantidad = CrearEtiqueta("Ejemplares", 466, 120);
-        PrepararCampo(campoCantidad, "campoCantidad", 466, 142, 130, 9);
+        var etiquetaCantidad = CrearEtiqueta("Ejemplares", 520, 126);
+        PrepararCampo(campoCantidad, "campoCantidad", 520, 150, 110, 9);
 
-        var etiquetaAutores = CrearEtiqueta("Autores (selecciona uno o varios)", 626, 120);
+        var etiquetaAutores = CrearEtiqueta("Autores (selecciona uno o varios)", 650, 126);
         listaAutores.CheckOnClick = true;
-        listaAutores.Location = new Point(626, 142);
+        listaAutores.Location = new Point(650, 150);
         listaAutores.Name = "listaAutores";
-        listaAutores.Size = new Size(350, 105);
+        listaAutores.Size = new Size(326, 105);
         listaAutores.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 
-        botonGuardar.Location = new Point(24, 268);
+        botonGuardar.Location = new Point(24, 276);
         botonGuardar.Name = "botonGuardar";
         botonGuardar.Size = new Size(120, 34);
         botonGuardar.Text = "Guardar";
         botonGuardar.Click += BotonGuardar_Click;
 
-        botonActualizar.Location = new Point(156, 268);
+        botonActualizar.Location = new Point(156, 276);
         botonActualizar.Name = "botonActualizar";
         botonActualizar.Size = new Size(120, 34);
         botonActualizar.Text = "Actualizar";
         botonActualizar.Enabled = false;
         botonActualizar.Click += BotonActualizar_Click;
 
-        botonEliminar.Location = new Point(288, 268);
+        botonEliminar.Location = new Point(288, 276);
         botonEliminar.Name = "botonEliminar";
         botonEliminar.Size = new Size(120, 34);
         botonEliminar.Text = "Eliminar";
@@ -102,7 +105,7 @@ public sealed class FormularioLibros : Form
 
         var botonLimpiar = new Button
         {
-            Location = new Point(420, 268),
+            Location = new Point(420, 276),
             Name = "botonLimpiar",
             Size = new Size(120, 34),
             Text = "Limpiar"
@@ -110,20 +113,20 @@ public sealed class FormularioLibros : Form
         botonLimpiar.Click += (_, _) => LimpiarSeleccion();
 
         etiquetaEstado.AutoSize = true;
-        etiquetaEstado.Location = new Point(24, 314);
+        etiquetaEstado.Location = new Point(24, 326);
         etiquetaEstado.Name = "etiquetaEstado";
         etiquetaEstado.Text = "Registra libros con su editorial, autores y existencias.";
 
         cuadriculaLibros.AllowUserToAddRows = false;
         cuadriculaLibros.AllowUserToDeleteRows = false;
         cuadriculaLibros.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-        cuadriculaLibros.Location = new Point(24, 344);
+        cuadriculaLibros.Location = new Point(24, 356);
         cuadriculaLibros.MultiSelect = false;
         cuadriculaLibros.Name = "cuadriculaLibros";
         cuadriculaLibros.ReadOnly = true;
         cuadriculaLibros.RowHeadersVisible = false;
         cuadriculaLibros.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        cuadriculaLibros.Size = new Size(952, 350);
+        cuadriculaLibros.Size = new Size(952, 338);
         cuadriculaLibros.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         cuadriculaLibros.SelectionChanged += CuadriculaLibros_SelectionChanged;
 
@@ -151,6 +154,7 @@ public sealed class FormularioLibros : Form
             etiquetaEstado,
             cuadriculaLibros
         ]);
+        EstiloInterfazBiblioteca.Aplicar(this, cuadriculaLibros);
     }
 
     private static Label CrearEtiqueta(string texto, int posicionX, int posicionY)

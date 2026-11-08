@@ -3,15 +3,20 @@ using SistemaGestionBiblioteca.Entidades;
 
 namespace SistemaGestionBiblioteca.Datos;
 
+/// <summary>
+/// Lee y guarda autores en la base de datos.
+/// </summary>
 public sealed class AutorRepositorio
 {
     private readonly ConexionBaseDatos conexionBaseDatos;
 
+    /// <summary>Crea el repositorio con el servicio de conexiones configurado.</summary>
     public AutorRepositorio(ConexionBaseDatos conexionBaseDatos)
     {
         this.conexionBaseDatos = conexionBaseDatos;
     }
 
+    /// <summary>Devuelve los autores ordenados por apellido y nombre.</summary>
     public async Task<List<Autor>> ObtenerTodosAsync(CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -39,6 +44,7 @@ public sealed class AutorRepositorio
         return autores;
     }
 
+    /// <summary>Inserta un autor nuevo.</summary>
     public async Task CrearAsync(Autor autor, CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -54,6 +60,7 @@ public sealed class AutorRepositorio
         await comando.ExecuteNonQueryAsync(tokenCancelacion);
     }
 
+    /// <summary>Guarda los cambios del autor indicado.</summary>
     public async Task ActualizarAsync(Autor autor, CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -75,6 +82,7 @@ public sealed class AutorRepositorio
         }
     }
 
+    /// <summary>Elimina el autor solo cuando no está asociado a libros.</summary>
     public async Task EliminarAsync(int autorId, CancellationToken tokenCancelacion = default)
     {
         const string consulta = """

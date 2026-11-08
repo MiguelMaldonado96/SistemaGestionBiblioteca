@@ -4,15 +4,20 @@ using SistemaGestionBiblioteca.Entidades;
 
 namespace SistemaGestionBiblioteca.Datos;
 
+/// <summary>
+/// Lee y guarda libros, sus existencias y sus relaciones con autores.
+/// </summary>
 public sealed class LibroRepositorio
 {
     private readonly ConexionBaseDatos conexionBaseDatos;
 
+    /// <summary>Crea el repositorio con el servicio de conexiones configurado.</summary>
     public LibroRepositorio(ConexionBaseDatos conexionBaseDatos)
     {
         this.conexionBaseDatos = conexionBaseDatos;
     }
 
+    /// <summary>Obtiene los libros y reúne sus autores en cada registro.</summary>
     public async Task<List<Libro>> ObtenerTodosAsync(CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -66,10 +71,12 @@ public sealed class LibroRepositorio
         return librosPorId.Values.ToList();
     }
 
+    /// <summary>Registra un libro y sus autores como una sola operación.</summary>
     public async Task CrearAsync(Libro libro, CancellationToken tokenCancelacion = default)
     {
         await using var conexion = conexionBaseDatos.CrearConexion();
         await conexion.OpenAsync(tokenCancelacion);
+        // La transacción evita guardar el libro si alguna relación con autores falla.
         await using var transaccion =
             (SqlTransaction)await conexion.BeginTransactionAsync(IsolationLevel.Serializable, tokenCancelacion);
 
@@ -90,10 +97,12 @@ public sealed class LibroRepositorio
         await transaccion.CommitAsync(tokenCancelacion);
     }
 
+    /// <summary>Actualiza el libro y sus autores sin alterar préstamos activos.</summary>
     public async Task ActualizarAsync(Libro libro, CancellationToken tokenCancelacion = default)
     {
         await using var conexion = conexionBaseDatos.CrearConexion();
         await conexion.OpenAsync(tokenCancelacion);
+        // La transacción mantiene sincronizados el inventario y los autores del libro.
         await using var transaccion =
             (SqlTransaction)await conexion.BeginTransactionAsync(IsolationLevel.Serializable, tokenCancelacion);
 
@@ -146,6 +155,7 @@ public sealed class LibroRepositorio
         await transaccion.CommitAsync(tokenCancelacion);
     }
 
+    /// <summary>Elimina el libro solo cuando no tiene préstamos registrados.</summary>
     public async Task EliminarAsync(int libroId, CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -171,6 +181,7 @@ public sealed class LibroRepositorio
         }
     }
 
+    /// <summary>Agrega los datos del libro a la consulta SQL como parámetros.</summary>
     private static void AgregarParametros(SqlCommand comando, Libro libro)
     {
         comando.Parameters.Add("@Codigo", SqlDbType.NVarChar, 20).Value = libro.Codigo;
@@ -182,6 +193,7 @@ public sealed class LibroRepositorio
         comando.Parameters.Add("@CantidadTotal", SqlDbType.Int).Value = libro.CantidadTotal;
     }
 
+    /// <summary>Reemplaza la lista de autores dentro de la misma transacción del libro.</summary>
     private static async Task ReemplazarAutoresAsync(
         SqlConnection conexion,
         SqlTransaction transaccion,

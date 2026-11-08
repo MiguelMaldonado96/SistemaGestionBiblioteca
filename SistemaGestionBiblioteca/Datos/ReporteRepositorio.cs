@@ -3,15 +3,20 @@ using Microsoft.Data.SqlClient;
 
 namespace SistemaGestionBiblioteca.Datos;
 
+/// <summary>
+/// Ejecuta las consultas que alimentan los reportes de la biblioteca.
+/// </summary>
 public sealed class ReporteRepositorio
 {
     private readonly ConexionBaseDatos conexionBaseDatos;
 
+    /// <summary>Crea el repositorio con el servicio de conexiones configurado.</summary>
     public ReporteRepositorio(ConexionBaseDatos conexionBaseDatos)
     {
         this.conexionBaseDatos = conexionBaseDatos;
     }
 
+    /// <summary>Cuenta los libros, ejemplares, personas y préstamos.</summary>
     public Task<DataTable> ObtenerResumenAsync(CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -38,6 +43,7 @@ public sealed class ReporteRepositorio
         return EjecutarConsultaAsync(consulta, tokenCancelacion);
     }
 
+    /// <summary>Consulta los libros junto con su editorial, autores y existencias.</summary>
     public Task<DataTable> ObtenerLibrosAsync(CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -63,6 +69,7 @@ public sealed class ReporteRepositorio
         return EjecutarConsultaAsync(consulta, tokenCancelacion);
     }
 
+    /// <summary>Cuenta cuántos libros están relacionados con cada autor.</summary>
     public Task<DataTable> ObtenerAutoresAsync(CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -76,6 +83,7 @@ public sealed class ReporteRepositorio
         return EjecutarConsultaAsync(consulta, tokenCancelacion);
     }
 
+    /// <summary>Cuenta cuántos libros publica cada editorial.</summary>
     public Task<DataTable> ObtenerEditorialesAsync(CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -89,6 +97,7 @@ public sealed class ReporteRepositorio
         return EjecutarConsultaAsync(consulta, tokenCancelacion);
     }
 
+    /// <summary>Cuenta cuántos préstamos tiene registrados cada usuario.</summary>
     public Task<DataTable> ObtenerUsuariosAsync(CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -103,6 +112,7 @@ public sealed class ReporteRepositorio
         return EjecutarConsultaAsync(consulta, tokenCancelacion);
     }
 
+    /// <summary>Consulta los préstamos pendientes y calcula los días de retraso.</summary>
     public Task<DataTable> ObtenerPrestamosActivosAsync(CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -126,6 +136,7 @@ public sealed class ReporteRepositorio
         return EjecutarConsultaAsync(consulta, tokenCancelacion);
     }
 
+    /// <summary>Consulta los préstamos que ya fueron devueltos.</summary>
     public Task<DataTable> ObtenerHistorialDevolucionesAsync(
         CancellationToken tokenCancelacion = default)
     {
@@ -146,6 +157,7 @@ public sealed class ReporteRepositorio
         return EjecutarConsultaAsync(consulta, tokenCancelacion);
     }
 
+    /// <summary>Ejecuta una consulta y copia sus resultados a una tabla para mostrarla.</summary>
     private async Task<DataTable> EjecutarConsultaAsync(
         string consulta,
         CancellationToken tokenCancelacion)

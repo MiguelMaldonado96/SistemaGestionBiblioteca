@@ -3,15 +3,20 @@ using SistemaGestionBiblioteca.Entidades;
 
 namespace SistemaGestionBiblioteca.Datos;
 
+/// <summary>
+/// Lee y guarda usuarios en la base de datos.
+/// </summary>
 public sealed class UsuarioRepositorio
 {
     private readonly ConexionBaseDatos conexionBaseDatos;
 
+    /// <summary>Crea el repositorio con el servicio de conexiones configurado.</summary>
     public UsuarioRepositorio(ConexionBaseDatos conexionBaseDatos)
     {
         this.conexionBaseDatos = conexionBaseDatos;
     }
 
+    /// <summary>Devuelve los usuarios ordenados por apellido y nombre.</summary>
     public async Task<List<Usuario>> ObtenerTodosAsync(CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -42,6 +47,7 @@ public sealed class UsuarioRepositorio
         return usuarios;
     }
 
+    /// <summary>Inserta un usuario nuevo.</summary>
     public async Task CrearAsync(Usuario usuario, CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -56,6 +62,7 @@ public sealed class UsuarioRepositorio
         await comando.ExecuteNonQueryAsync(tokenCancelacion);
     }
 
+    /// <summary>Guarda los cambios del usuario indicado.</summary>
     public async Task ActualizarAsync(Usuario usuario, CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -80,6 +87,7 @@ public sealed class UsuarioRepositorio
         }
     }
 
+    /// <summary>Elimina al usuario solo cuando no tiene préstamos relacionados.</summary>
     public async Task EliminarAsync(int usuarioId, CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -105,6 +113,7 @@ public sealed class UsuarioRepositorio
         }
     }
 
+    /// <summary>Agrega los datos del usuario a la consulta SQL como parámetros.</summary>
     private static void AgregarParametros(SqlCommand comando, Usuario usuario)
     {
         comando.Parameters.Add("@Nombre", System.Data.SqlDbType.NVarChar, 80).Value = usuario.Nombre;

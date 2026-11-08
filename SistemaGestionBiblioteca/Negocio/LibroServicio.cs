@@ -3,20 +3,26 @@ using SistemaGestionBiblioteca.Entidades;
 
 namespace SistemaGestionBiblioteca.Negocio;
 
+/// <summary>
+/// Valida los libros y prepara sus datos para el repositorio.
+/// </summary>
 public sealed class LibroServicio
 {
     private readonly LibroRepositorio libroRepositorio;
 
+    /// <summary>Crea el servicio y le entrega el repositorio de libros.</summary>
     public LibroServicio(LibroRepositorio libroRepositorio)
     {
         this.libroRepositorio = libroRepositorio;
     }
 
+    /// <summary>Obtiene los libros con su editorial y autores relacionados.</summary>
     public Task<List<Libro>> ObtenerTodosAsync(CancellationToken tokenCancelacion = default)
     {
         return libroRepositorio.ObtenerTodosAsync(tokenCancelacion);
     }
 
+    /// <summary>Valida los datos y registra un libro con sus autores.</summary>
     public Task CrearAsync(
         string codigo,
         string? isbn,
@@ -33,6 +39,7 @@ public sealed class LibroServicio
             tokenCancelacion);
     }
 
+    /// <summary>Valida los datos y guarda los cambios del libro indicado.</summary>
     public Task ActualizarAsync(
         int libroId,
         string codigo,
@@ -55,6 +62,7 @@ public sealed class LibroServicio
         return libroRepositorio.ActualizarAsync(libro, tokenCancelacion);
     }
 
+    /// <summary>Elimina el libro si no tiene préstamos relacionados.</summary>
     public Task EliminarAsync(int libroId, CancellationToken tokenCancelacion = default)
     {
         if (libroId <= 0)
@@ -65,6 +73,7 @@ public sealed class LibroServicio
         return libroRepositorio.EliminarAsync(libroId, tokenCancelacion);
     }
 
+    /// <summary>Construye el libro y elimina autores repetidos de la selección.</summary>
     private static Libro CrearLibro(
         string codigo,
         string? isbn,
@@ -87,6 +96,7 @@ public sealed class LibroServicio
         };
     }
 
+    /// <summary>Comprueba los campos obligatorios, las cantidades y las relaciones del libro.</summary>
     private static void ValidarDatos(
         string codigo,
         string? isbn,
@@ -129,6 +139,7 @@ public sealed class LibroServicio
         }
     }
 
+    /// <summary>Convierte un dato opcional vacío en nulo y quita espacios sobrantes.</summary>
     private static string? NormalizarOpcional(string? valor)
     {
         return string.IsNullOrWhiteSpace(valor) ? null : valor.Trim();

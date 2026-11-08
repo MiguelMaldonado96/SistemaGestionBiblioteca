@@ -4,20 +4,26 @@ using SistemaGestionBiblioteca.Entidades;
 
 namespace SistemaGestionBiblioteca.Negocio;
 
+/// <summary>
+/// Valida y organiza las operaciones de usuarios antes de guardarlas.
+/// </summary>
 public sealed class UsuarioServicio
 {
     private readonly UsuarioRepositorio usuarioRepositorio;
 
+    /// <summary>Crea el servicio y le entrega el repositorio de usuarios.</summary>
     public UsuarioServicio(UsuarioRepositorio usuarioRepositorio)
     {
         this.usuarioRepositorio = usuarioRepositorio;
     }
 
+    /// <summary>Obtiene todos los usuarios registrados.</summary>
     public Task<List<Usuario>> ObtenerTodosAsync(CancellationToken tokenCancelacion = default)
     {
         return usuarioRepositorio.ObtenerTodosAsync(tokenCancelacion);
     }
 
+    /// <summary>Valida los datos y registra a un usuario nuevo.</summary>
     public Task CrearAsync(
         string nombre,
         string apellido,
@@ -32,6 +38,7 @@ public sealed class UsuarioServicio
             tokenCancelacion);
     }
 
+    /// <summary>Valida los datos y guarda los cambios del usuario indicado.</summary>
     public Task ActualizarAsync(
         int usuarioId,
         string nombre,
@@ -52,6 +59,7 @@ public sealed class UsuarioServicio
         return usuarioRepositorio.ActualizarAsync(usuario, tokenCancelacion);
     }
 
+    /// <summary>Elimina el usuario si no tiene préstamos relacionados.</summary>
     public Task EliminarAsync(int usuarioId, CancellationToken tokenCancelacion = default)
     {
         if (usuarioId <= 0)
@@ -62,6 +70,7 @@ public sealed class UsuarioServicio
         return usuarioRepositorio.EliminarAsync(usuarioId, tokenCancelacion);
     }
 
+    /// <summary>Prepara los datos del usuario y limpia los espacios sobrantes.</summary>
     private static Usuario CrearUsuario(
         string nombre,
         string apellido,
@@ -79,6 +88,7 @@ public sealed class UsuarioServicio
         };
     }
 
+    /// <summary>Comprueba los datos obligatorios, sus longitudes y el formato del correo.</summary>
     private static void ValidarDatos(
         string nombre,
         string apellido,
@@ -110,6 +120,7 @@ public sealed class UsuarioServicio
         }
     }
 
+    /// <summary>Convierte un dato opcional vacío en nulo y quita espacios sobrantes.</summary>
     private static string? NormalizarOpcional(string? valor)
     {
         return string.IsNullOrWhiteSpace(valor) ? null : valor.Trim();

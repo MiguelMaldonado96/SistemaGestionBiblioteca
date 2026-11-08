@@ -5,6 +5,9 @@ using SistemaGestionBiblioteca.Negocio;
 
 namespace SistemaGestionBiblioteca.Presentacion;
 
+/// <summary>
+/// Registra préstamos y devoluciones y muestra sus movimientos.
+/// </summary>
 public sealed class FormularioPrestamos : Form
 {
     private readonly PrestamoServicio prestamoServicio =
@@ -52,82 +55,82 @@ public sealed class FormularioPrestamos : Form
 
         var etiquetaUsuario = CrearEtiqueta("Usuario", 24, 52);
         listaUsuarios.DropDownStyle = ComboBoxStyle.DropDownList;
-        listaUsuarios.Location = new Point(24, 74);
+        listaUsuarios.Location = new Point(24, 78);
         listaUsuarios.Name = "listaUsuarios";
         listaUsuarios.Size = new Size(450, 27);
 
         var etiquetaLibro = CrearEtiqueta("Libro", 500, 52);
         listaLibros.DropDownStyle = ComboBoxStyle.DropDownList;
-        listaLibros.Location = new Point(500, 74);
+        listaLibros.Location = new Point(500, 78);
         listaLibros.Name = "listaLibros";
         listaLibros.Size = new Size(500, 27);
 
-        var etiquetaFechaPrestamo = CrearEtiqueta("Fecha del préstamo", 24, 116);
+        var etiquetaFechaPrestamo = CrearEtiqueta("Fecha del préstamo", 24, 122);
         selectorFechaPrestamo.Format = DateTimePickerFormat.Short;
-        selectorFechaPrestamo.Location = new Point(24, 138);
+        selectorFechaPrestamo.Location = new Point(24, 146);
         selectorFechaPrestamo.MaxDate = DateTime.Today;
         selectorFechaPrestamo.Name = "selectorFechaPrestamo";
         selectorFechaPrestamo.Size = new Size(220, 27);
         selectorFechaPrestamo.Value = DateTime.Today;
 
-        var etiquetaFechaDevolucion = CrearEtiqueta("Fecha prevista de devolución", 270, 116);
+        var etiquetaFechaDevolucion = CrearEtiqueta("Fecha prevista de devolución", 270, 122);
         selectorFechaDevolucionPrevista.Format = DateTimePickerFormat.Short;
-        selectorFechaDevolucionPrevista.Location = new Point(270, 138);
+        selectorFechaDevolucionPrevista.Location = new Point(270, 146);
         selectorFechaDevolucionPrevista.Name = "selectorFechaDevolucionPrevista";
         selectorFechaDevolucionPrevista.Size = new Size(220, 27);
         selectorFechaDevolucionPrevista.Value = DateTime.Today.AddDays(14);
 
-        botonGuardar.Location = new Point(24, 184);
+        botonGuardar.Location = new Point(24, 190);
         botonGuardar.Name = "botonGuardar";
-        botonGuardar.Size = new Size(130, 34);
+        botonGuardar.Size = new Size(220, 38);
         botonGuardar.Text = "Registrar préstamo";
         botonGuardar.Click += BotonGuardar_Click;
 
-        botonActualizar.Location = new Point(164, 184);
+        botonActualizar.Location = new Point(254, 190);
         botonActualizar.Name = "botonActualizar";
-        botonActualizar.Size = new Size(120, 34);
+        botonActualizar.Size = new Size(120, 38);
         botonActualizar.Text = "Actualizar";
         botonActualizar.Enabled = false;
         botonActualizar.Click += BotonActualizar_Click;
 
-        botonDevolver.Location = new Point(294, 184);
+        botonDevolver.Location = new Point(384, 190);
         botonDevolver.Name = "botonDevolver";
-        botonDevolver.Size = new Size(130, 34);
+        botonDevolver.Size = new Size(220, 38);
         botonDevolver.Text = "Registrar devolución";
         botonDevolver.Enabled = false;
         botonDevolver.Click += BotonDevolver_Click;
 
-        botonEliminar.Location = new Point(434, 184);
+        botonEliminar.Location = new Point(614, 190);
         botonEliminar.Name = "botonEliminar";
-        botonEliminar.Size = new Size(120, 34);
+        botonEliminar.Size = new Size(120, 38);
         botonEliminar.Text = "Eliminar";
         botonEliminar.Enabled = false;
         botonEliminar.Click += BotonEliminar_Click;
 
         var botonLimpiar = new Button
         {
-            Location = new Point(564, 184),
+            Location = new Point(744, 190),
             Name = "botonLimpiar",
-            Size = new Size(120, 34),
+            Size = new Size(120, 38),
             Text = "Limpiar"
         };
         botonLimpiar.Click += (_, _) => LimpiarSeleccion();
 
         etiquetaEstado.AutoSize = true;
-        etiquetaEstado.Location = new Point(24, 236);
+        etiquetaEstado.Location = new Point(24, 244);
         etiquetaEstado.Name = "etiquetaEstado";
         etiquetaEstado.Text = "Los préstamos descuentan existencias; las devoluciones las restauran.";
 
         cuadriculaPrestamos.AllowUserToAddRows = false;
         cuadriculaPrestamos.AllowUserToDeleteRows = false;
         cuadriculaPrestamos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-        cuadriculaPrestamos.Location = new Point(24, 266);
+        cuadriculaPrestamos.Location = new Point(24, 274);
         cuadriculaPrestamos.MultiSelect = false;
         cuadriculaPrestamos.Name = "cuadriculaPrestamos";
         cuadriculaPrestamos.ReadOnly = true;
         cuadriculaPrestamos.RowHeadersVisible = false;
         cuadriculaPrestamos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        cuadriculaPrestamos.Size = new Size(992, 380);
+        cuadriculaPrestamos.Size = new Size(992, 372);
         cuadriculaPrestamos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         cuadriculaPrestamos.SelectionChanged += CuadriculaPrestamos_SelectionChanged;
 
@@ -150,6 +153,7 @@ public sealed class FormularioPrestamos : Form
             etiquetaEstado,
             cuadriculaPrestamos
         ]);
+        EstiloInterfazBiblioteca.Aplicar(this, cuadriculaPrestamos);
     }
 
     private static Label CrearEtiqueta(string texto, int posicionX, int posicionY)

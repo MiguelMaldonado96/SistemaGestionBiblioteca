@@ -1,3 +1,4 @@
+-- Crea la base de datos solo si todavía no existe.
 IF DB_ID(N'SistemaGestionBiblioteca') IS NULL
 BEGIN
     CREATE DATABASE [SistemaGestionBiblioteca];
@@ -16,6 +17,7 @@ SET QUOTED_IDENTIFIER ON;
 SET NUMERIC_ROUNDABORT OFF;
 GO
 
+-- Datos básicos para identificar a los autores.
 IF OBJECT_ID(N'dbo.Autores', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.Autores
@@ -27,6 +29,7 @@ BEGIN
 END;
 GO
 
+-- Editoriales que publican los libros.
 IF OBJECT_ID(N'dbo.Editoriales', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.Editoriales
@@ -39,6 +42,7 @@ BEGIN
 END;
 GO
 
+-- Personas que pueden pedir libros prestados.
 IF OBJECT_ID(N'dbo.Usuarios', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.Usuarios
@@ -54,6 +58,7 @@ BEGIN
 END;
 GO
 
+-- Catálogo de libros y cantidades totales y disponibles.
 IF OBJECT_ID(N'dbo.Libros', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.Libros
@@ -76,6 +81,7 @@ BEGIN
 END;
 GO
 
+-- Relaciona libros con sus autores; un libro puede tener varios autores.
 IF OBJECT_ID(N'dbo.LibroAutores', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.LibroAutores
@@ -91,6 +97,7 @@ BEGIN
 END;
 GO
 
+-- Evita que la eliminación de un autor borre también sus relaciones.
 IF EXISTS
 (
     SELECT 1
@@ -117,6 +124,7 @@ BEGIN
 END;
 GO
 
+-- Registra préstamos y calcula su estado según la fecha real de devolución.
 IF OBJECT_ID(N'dbo.Prestamos', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.Prestamos
@@ -142,6 +150,7 @@ BEGIN
 END;
 GO
 
+-- Índices que ayudan a buscar códigos, correos y relaciones con más rapidez.
 IF NOT EXISTS
 (
     SELECT 1
@@ -202,6 +211,7 @@ BEGIN
 END;
 GO
 
+-- Registros de ejemplo: cada bloque comprueba antes si ya existe el dato.
 IF NOT EXISTS (SELECT 1 FROM dbo.Autores WHERE Nombre = N'Ana' AND Apellido = N'Ejemplo')
 BEGIN
     INSERT INTO dbo.Autores (Nombre, Apellido)
@@ -258,6 +268,7 @@ IF NOT EXISTS (SELECT 1 FROM dbo.Prestamos WHERE UsuarioId = @usuarioId AND Libr
    AND EXISTS (SELECT 1 FROM dbo.Libros WHERE LibroId = @libroId AND CantidadDisponible > 0)
 BEGIN
     BEGIN TRY
+        -- Actualiza el inventario y crea el préstamo como una sola operación.
         BEGIN TRANSACTION;
 
         UPDATE dbo.Libros

@@ -33,10 +33,6 @@ SistemaGestionBiblioteca/
 - Libros: gestionar relaciones con autores y editoriales, el ISBN y la cantidad de ejemplares disponibles.
 - Préstamos y devoluciones: registrar, consultar, actualizar y eliminar movimientos; valida fechas y disponibilidad, y ajusta existencias de forma transaccional.
 - Reportes: resumen, libros, autores, editoriales, usuarios, préstamos activos e historial de devoluciones.
-- Editoriales
-- Usuarios
-- Préstamos y devoluciones
-- Consultas y reportes
 
 ## Base de datos
 
@@ -44,6 +40,7 @@ El script inicial y el modelo entidad-relación con diccionario de datos están 
 
 - `BaseDatos/01_CrearBaseDatos.sql`
 - `Documentacion/ModeloDeDatos.md`
+- `Documentacion/GuiaDelCodigo.md`: explica en lenguaje sencillo para qué sirve cada carpeta y archivo del código.
 
 Ejecuta el script desde SQL Server Management Studio para crear la base de datos e insertar registros de prueba.
 
@@ -87,4 +84,4 @@ dotnet run --project SistemaGestionBiblioteca/SistemaGestionBiblioteca.csproj
 
 ## Estado
 
-En desarrollo. La conexión local y la base de datos ya están verificadas; los módulos principales, incluido Reportes, están implementados. Falta completar las pruebas de la interfaz y la documentación final.
+En desarrollo. La conexión local y la base de datos ya están verificadas; los módulos principales, incluido Reportes, están implementados. La interfaz y la guía de código están documentadas. Quedan pendientes las capturas de pantalla para la entrega.

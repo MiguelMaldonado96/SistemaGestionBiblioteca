@@ -3,20 +3,26 @@ using SistemaGestionBiblioteca.Entidades;
 
 namespace SistemaGestionBiblioteca.Negocio;
 
+/// <summary>
+/// Valida las reglas de préstamos y devoluciones antes de guardarlas.
+/// </summary>
 public sealed class PrestamoServicio
 {
     private readonly PrestamoRepositorio prestamoRepositorio;
 
+    /// <summary>Crea el servicio y le entrega el repositorio de préstamos.</summary>
     public PrestamoServicio(PrestamoRepositorio prestamoRepositorio)
     {
         this.prestamoRepositorio = prestamoRepositorio;
     }
 
+    /// <summary>Obtiene los préstamos con sus datos de usuario y libro.</summary>
     public Task<List<Prestamo>> ObtenerTodosAsync(CancellationToken tokenCancelacion = default)
     {
         return prestamoRepositorio.ObtenerTodosAsync(tokenCancelacion);
     }
 
+    /// <summary>Valida las fechas y registra un préstamo.</summary>
     public Task RegistrarAsync(
         int usuarioId,
         int libroId,
@@ -36,6 +42,7 @@ public sealed class PrestamoServicio
             tokenCancelacion);
     }
 
+    /// <summary>Valida las fechas y actualiza un préstamo activo.</summary>
     public Task ActualizarAsync(
         int prestamoId,
         int usuarioId,
@@ -62,6 +69,7 @@ public sealed class PrestamoServicio
             tokenCancelacion);
     }
 
+    /// <summary>Registra la devolución de un préstamo activo en la fecha indicada.</summary>
     public Task RegistrarDevolucionAsync(
         int prestamoId,
         DateTime fechaDevolucionReal,
@@ -83,6 +91,7 @@ public sealed class PrestamoServicio
             tokenCancelacion);
     }
 
+    /// <summary>Elimina el préstamo indicado.</summary>
     public Task EliminarAsync(int prestamoId, CancellationToken tokenCancelacion = default)
     {
         if (prestamoId <= 0)
@@ -93,6 +102,7 @@ public sealed class PrestamoServicio
         return prestamoRepositorio.EliminarAsync(prestamoId, tokenCancelacion);
     }
 
+    /// <summary>Comprueba que existan usuario y libro y que las fechas sean válidas.</summary>
     private static void ValidarDatos(
         int usuarioId,
         int libroId,

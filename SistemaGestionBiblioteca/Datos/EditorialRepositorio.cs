@@ -3,15 +3,20 @@ using SistemaGestionBiblioteca.Entidades;
 
 namespace SistemaGestionBiblioteca.Datos;
 
+/// <summary>
+/// Lee y guarda editoriales en la base de datos.
+/// </summary>
 public sealed class EditorialRepositorio
 {
     private readonly ConexionBaseDatos conexionBaseDatos;
 
+    /// <summary>Crea el repositorio con el servicio de conexiones configurado.</summary>
     public EditorialRepositorio(ConexionBaseDatos conexionBaseDatos)
     {
         this.conexionBaseDatos = conexionBaseDatos;
     }
 
+    /// <summary>Devuelve las editoriales ordenadas por nombre.</summary>
     public async Task<List<Editorial>> ObtenerTodosAsync(CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -39,6 +44,7 @@ public sealed class EditorialRepositorio
         return editoriales;
     }
 
+    /// <summary>Inserta una editorial nueva.</summary>
     public async Task CrearAsync(Editorial editorial, CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -55,6 +61,7 @@ public sealed class EditorialRepositorio
         await comando.ExecuteNonQueryAsync(tokenCancelacion);
     }
 
+    /// <summary>Guarda los cambios de la editorial indicada.</summary>
     public async Task ActualizarAsync(Editorial editorial, CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -77,6 +84,7 @@ public sealed class EditorialRepositorio
         }
     }
 
+    /// <summary>Elimina la editorial solo cuando no publica libros registrados.</summary>
     public async Task EliminarAsync(int editorialId, CancellationToken tokenCancelacion = default)
     {
         const string consulta = """

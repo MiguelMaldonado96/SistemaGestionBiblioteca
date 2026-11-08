@@ -5,6 +5,9 @@ using SistemaGestionBiblioteca.Negocio;
 
 namespace SistemaGestionBiblioteca.Presentacion;
 
+/// <summary>
+/// Permite consultar y administrar las editoriales registradas.
+/// </summary>
 public sealed class FormularioEditoriales : Form
 {
     private readonly EditorialServicio editorialServicio =
@@ -46,31 +49,31 @@ public sealed class FormularioEditoriales : Form
         };
 
         var etiquetaNombre = CrearEtiqueta("Nombre", 24, 68);
-        campoNombre.Location = new Point(24, 90);
+        campoNombre.Location = new Point(24, 94);
         campoNombre.MaxLength = 120;
         campoNombre.Name = "campoNombre";
         campoNombre.Size = new Size(320, 27);
 
         var etiquetaPais = CrearEtiqueta("País (opcional)", 366, 68);
-        campoPais.Location = new Point(366, 90);
+        campoPais.Location = new Point(366, 94);
         campoPais.MaxLength = 80;
         campoPais.Name = "campoPais";
         campoPais.Size = new Size(320, 27);
 
-        botonGuardar.Location = new Point(24, 132);
+        botonGuardar.Location = new Point(24, 142);
         botonGuardar.Name = "botonGuardar";
         botonGuardar.Size = new Size(120, 34);
         botonGuardar.Text = "Guardar";
         botonGuardar.Click += BotonGuardar_Click;
 
-        botonActualizar.Location = new Point(156, 132);
+        botonActualizar.Location = new Point(156, 142);
         botonActualizar.Name = "botonActualizar";
         botonActualizar.Size = new Size(120, 34);
         botonActualizar.Text = "Actualizar";
         botonActualizar.Enabled = false;
         botonActualizar.Click += BotonActualizar_Click;
 
-        botonEliminar.Location = new Point(288, 132);
+        botonEliminar.Location = new Point(288, 142);
         botonEliminar.Name = "botonEliminar";
         botonEliminar.Size = new Size(120, 34);
         botonEliminar.Text = "Eliminar";
@@ -79,7 +82,7 @@ public sealed class FormularioEditoriales : Form
 
         var botonLimpiar = new Button
         {
-            Location = new Point(420, 132),
+            Location = new Point(420, 142),
             Name = "botonLimpiar",
             Size = new Size(120, 34),
             Text = "Limpiar"
@@ -87,20 +90,20 @@ public sealed class FormularioEditoriales : Form
         botonLimpiar.Click += (_, _) => LimpiarSeleccion();
 
         etiquetaEstado.AutoSize = true;
-        etiquetaEstado.Location = new Point(24, 180);
+        etiquetaEstado.Location = new Point(24, 192);
         etiquetaEstado.Name = "etiquetaEstado";
         etiquetaEstado.Text = "Selecciona una editorial para editarla o eliminarla.";
 
         cuadriculaEditoriales.AllowUserToAddRows = false;
         cuadriculaEditoriales.AllowUserToDeleteRows = false;
         cuadriculaEditoriales.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-        cuadriculaEditoriales.Location = new Point(24, 210);
+        cuadriculaEditoriales.Location = new Point(24, 222);
         cuadriculaEditoriales.MultiSelect = false;
         cuadriculaEditoriales.Name = "cuadriculaEditoriales";
         cuadriculaEditoriales.ReadOnly = true;
         cuadriculaEditoriales.RowHeadersVisible = false;
         cuadriculaEditoriales.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        cuadriculaEditoriales.Size = new Size(740, 300);
+        cuadriculaEditoriales.Size = new Size(740, 288);
         cuadriculaEditoriales.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         cuadriculaEditoriales.SelectionChanged += CuadriculaEditoriales_SelectionChanged;
 
@@ -118,6 +121,7 @@ public sealed class FormularioEditoriales : Form
             etiquetaEstado,
             cuadriculaEditoriales
         ]);
+        EstiloInterfazBiblioteca.Aplicar(this, cuadriculaEditoriales);
     }
 
     private static Label CrearEtiqueta(string texto, int posicionX, int posicionY)

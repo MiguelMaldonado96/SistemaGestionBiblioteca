@@ -5,6 +5,9 @@ using SistemaGestionBiblioteca.Negocio;
 
 namespace SistemaGestionBiblioteca.Presentacion;
 
+/// <summary>
+/// Permite consultar y administrar las personas usuarias de la biblioteca.
+/// </summary>
 public sealed class FormularioUsuarios : Form
 {
     private readonly UsuarioServicio usuarioServicio =
@@ -48,35 +51,35 @@ public sealed class FormularioUsuarios : Form
             Text = "Usuarios"
         };
 
-        var etiquetaNombre = CrearEtiqueta("Nombre", 24, 62);
-        PrepararCampo(campoNombre, "campoNombre", 24, 84, 320, 80);
+        var etiquetaNombre = CrearEtiqueta("Nombre", 24, 68);
+        PrepararCampo(campoNombre, "campoNombre", 24, 92, 320, 80);
 
-        var etiquetaApellido = CrearEtiqueta("Apellido", 366, 62);
-        PrepararCampo(campoApellido, "campoApellido", 366, 84, 320, 80);
+        var etiquetaApellido = CrearEtiqueta("Apellido", 366, 68);
+        PrepararCampo(campoApellido, "campoApellido", 366, 92, 320, 80);
 
-        var etiquetaDocumento = CrearEtiqueta("Documento", 24, 126);
-        PrepararCampo(campoDocumento, "campoDocumento", 24, 148, 320, 30);
+        var etiquetaDocumento = CrearEtiqueta("Documento", 24, 134);
+        PrepararCampo(campoDocumento, "campoDocumento", 24, 158, 320, 30);
 
-        var etiquetaTelefono = CrearEtiqueta("Teléfono (opcional)", 366, 126);
-        PrepararCampo(campoTelefono, "campoTelefono", 366, 148, 320, 30);
+        var etiquetaTelefono = CrearEtiqueta("Teléfono (opcional)", 366, 134);
+        PrepararCampo(campoTelefono, "campoTelefono", 366, 158, 320, 30);
 
-        var etiquetaCorreo = CrearEtiqueta("Correo electrónico (opcional)", 24, 190);
-        PrepararCampo(campoCorreo, "campoCorreo", 24, 212, 320, 254);
+        var etiquetaCorreo = CrearEtiqueta("Correo electrónico (opcional)", 24, 200);
+        PrepararCampo(campoCorreo, "campoCorreo", 24, 224, 320, 254);
 
-        botonGuardar.Location = new Point(24, 258);
+        botonGuardar.Location = new Point(24, 270);
         botonGuardar.Name = "botonGuardar";
         botonGuardar.Size = new Size(120, 34);
         botonGuardar.Text = "Guardar";
         botonGuardar.Click += BotonGuardar_Click;
 
-        botonActualizar.Location = new Point(156, 258);
+        botonActualizar.Location = new Point(156, 270);
         botonActualizar.Name = "botonActualizar";
         botonActualizar.Size = new Size(120, 34);
         botonActualizar.Text = "Actualizar";
         botonActualizar.Enabled = false;
         botonActualizar.Click += BotonActualizar_Click;
 
-        botonEliminar.Location = new Point(288, 258);
+        botonEliminar.Location = new Point(288, 270);
         botonEliminar.Name = "botonEliminar";
         botonEliminar.Size = new Size(120, 34);
         botonEliminar.Text = "Eliminar";
@@ -85,7 +88,7 @@ public sealed class FormularioUsuarios : Form
 
         var botonLimpiar = new Button
         {
-            Location = new Point(420, 258),
+            Location = new Point(420, 270),
             Name = "botonLimpiar",
             Size = new Size(120, 34),
             Text = "Limpiar"
@@ -93,20 +96,20 @@ public sealed class FormularioUsuarios : Form
         botonLimpiar.Click += (_, _) => LimpiarSeleccion();
 
         etiquetaEstado.AutoSize = true;
-        etiquetaEstado.Location = new Point(24, 306);
+        etiquetaEstado.Location = new Point(24, 320);
         etiquetaEstado.Name = "etiquetaEstado";
         etiquetaEstado.Text = "Selecciona un usuario para editarlo o eliminarlo.";
 
         cuadriculaUsuarios.AllowUserToAddRows = false;
         cuadriculaUsuarios.AllowUserToDeleteRows = false;
         cuadriculaUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-        cuadriculaUsuarios.Location = new Point(24, 336);
+        cuadriculaUsuarios.Location = new Point(24, 350);
         cuadriculaUsuarios.MultiSelect = false;
         cuadriculaUsuarios.Name = "cuadriculaUsuarios";
         cuadriculaUsuarios.ReadOnly = true;
         cuadriculaUsuarios.RowHeadersVisible = false;
         cuadriculaUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        cuadriculaUsuarios.Size = new Size(740, 270);
+        cuadriculaUsuarios.Size = new Size(740, 256);
         cuadriculaUsuarios.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         cuadriculaUsuarios.SelectionChanged += CuadriculaUsuarios_SelectionChanged;
 
@@ -130,6 +133,7 @@ public sealed class FormularioUsuarios : Form
             etiquetaEstado,
             cuadriculaUsuarios
         ]);
+        EstiloInterfazBiblioteca.Aplicar(this, cuadriculaUsuarios);
     }
 
     private static Label CrearEtiqueta(string texto, int posicionX, int posicionY)

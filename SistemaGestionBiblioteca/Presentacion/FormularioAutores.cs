@@ -5,6 +5,9 @@ using SistemaGestionBiblioteca.Negocio;
 
 namespace SistemaGestionBiblioteca.Presentacion;
 
+/// <summary>
+/// Permite consultar y administrar los autores registrados.
+/// </summary>
 public sealed class FormularioAutores : Form
 {
     private readonly AutorServicio autorServicio = new(new AutorRepositorio(new ConexionBaseDatos()));
@@ -45,31 +48,31 @@ public sealed class FormularioAutores : Form
         };
 
         var etiquetaNombre = CrearEtiqueta("Nombre", 24, 68);
-        campoNombre.Location = new Point(24, 90);
+        campoNombre.Location = new Point(24, 94);
         campoNombre.MaxLength = 80;
         campoNombre.Name = "campoNombre";
         campoNombre.Size = new Size(320, 27);
 
         var etiquetaApellido = CrearEtiqueta("Apellido", 366, 68);
-        campoApellido.Location = new Point(366, 90);
+        campoApellido.Location = new Point(366, 94);
         campoApellido.MaxLength = 80;
         campoApellido.Name = "campoApellido";
         campoApellido.Size = new Size(320, 27);
 
-        botonGuardar.Location = new Point(24, 132);
+        botonGuardar.Location = new Point(24, 142);
         botonGuardar.Name = "botonGuardar";
         botonGuardar.Size = new Size(120, 34);
         botonGuardar.Text = "Guardar";
         botonGuardar.Click += BotonGuardar_Click;
 
-        botonActualizar.Location = new Point(156, 132);
+        botonActualizar.Location = new Point(156, 142);
         botonActualizar.Name = "botonActualizar";
         botonActualizar.Size = new Size(120, 34);
         botonActualizar.Text = "Actualizar";
         botonActualizar.Enabled = false;
         botonActualizar.Click += BotonActualizar_Click;
 
-        botonEliminar.Location = new Point(288, 132);
+        botonEliminar.Location = new Point(288, 142);
         botonEliminar.Name = "botonEliminar";
         botonEliminar.Size = new Size(120, 34);
         botonEliminar.Text = "Eliminar";
@@ -78,7 +81,7 @@ public sealed class FormularioAutores : Form
 
         var botonLimpiar = new Button
         {
-            Location = new Point(420, 132),
+            Location = new Point(420, 142),
             Name = "botonLimpiar",
             Size = new Size(120, 34),
             Text = "Limpiar"
@@ -86,20 +89,20 @@ public sealed class FormularioAutores : Form
         botonLimpiar.Click += (_, _) => LimpiarSeleccion();
 
         etiquetaEstado.AutoSize = true;
-        etiquetaEstado.Location = new Point(24, 180);
+        etiquetaEstado.Location = new Point(24, 192);
         etiquetaEstado.Name = "etiquetaEstado";
         etiquetaEstado.Text = "Selecciona un autor de la lista para editarlo o eliminarlo.";
 
         cuadriculaAutores.AllowUserToAddRows = false;
         cuadriculaAutores.AllowUserToDeleteRows = false;
         cuadriculaAutores.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-        cuadriculaAutores.Location = new Point(24, 210);
+        cuadriculaAutores.Location = new Point(24, 222);
         cuadriculaAutores.MultiSelect = false;
         cuadriculaAutores.Name = "cuadriculaAutores";
         cuadriculaAutores.ReadOnly = true;
         cuadriculaAutores.RowHeadersVisible = false;
         cuadriculaAutores.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        cuadriculaAutores.Size = new Size(740, 300);
+        cuadriculaAutores.Size = new Size(740, 288);
         cuadriculaAutores.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         cuadriculaAutores.SelectionChanged += CuadriculaAutores_SelectionChanged;
 
@@ -117,6 +120,7 @@ public sealed class FormularioAutores : Form
             etiquetaEstado,
             cuadriculaAutores
         ]);
+        EstiloInterfazBiblioteca.Aplicar(this, cuadriculaAutores);
     }
 
     private static Label CrearEtiqueta(string texto, int posicionX, int posicionY)

@@ -5,6 +5,9 @@ using SistemaGestionBiblioteca.Negocio;
 
 namespace SistemaGestionBiblioteca.Presentacion;
 
+/// <summary>
+/// Muestra resúmenes y consultas sobre los datos de la biblioteca.
+/// </summary>
 public sealed class FormularioReportes : Form
 {
     private readonly ReporteServicio reporteServicio =
@@ -46,22 +49,22 @@ public sealed class FormularioReportes : Form
             Text = "Consultas y reportes"
         };
 
-        botonActualizar.Location = new Point(24, 48);
+        botonActualizar.Location = new Point(24, 56);
         botonActualizar.Name = "botonActualizar";
-        botonActualizar.Size = new Size(140, 32);
+        botonActualizar.Size = new Size(180, 38);
         botonActualizar.Text = "Actualizar reportes";
         botonActualizar.Click += BotonActualizar_Click;
 
         etiquetaEstado.AutoSize = true;
-        etiquetaEstado.Location = new Point(182, 57);
+        etiquetaEstado.Location = new Point(222, 67);
         etiquetaEstado.Name = "etiquetaEstado";
         etiquetaEstado.Text = "Información consolidada de la biblioteca.";
 
         var pestanasReportes = new TabControl
         {
-            Location = new Point(24, 92),
+            Location = new Point(24, 108),
             Name = "pestanasReportes",
-            Size = new Size(952, 570),
+            Size = new Size(952, 554),
             Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
         };
 
@@ -77,6 +80,7 @@ public sealed class FormularioReportes : Form
         Controls.Add(botonActualizar);
         Controls.Add(etiquetaEstado);
         Controls.Add(pestanasReportes);
+        EstiloInterfazBiblioteca.Aplicar(this);
     }
 
     private static DataGridView CrearCuadricula()

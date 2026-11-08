@@ -4,15 +4,20 @@ using SistemaGestionBiblioteca.Entidades;
 
 namespace SistemaGestionBiblioteca.Datos;
 
+/// <summary>
+/// Lee y guarda préstamos y actualiza las existencias de los libros.
+/// </summary>
 public sealed class PrestamoRepositorio
 {
     private readonly ConexionBaseDatos conexionBaseDatos;
 
+    /// <summary>Crea el repositorio con el servicio de conexiones configurado.</summary>
     public PrestamoRepositorio(ConexionBaseDatos conexionBaseDatos)
     {
         this.conexionBaseDatos = conexionBaseDatos;
     }
 
+    /// <summary>Devuelve los préstamos con el nombre del usuario y los datos del libro.</summary>
     public async Task<List<Prestamo>> ObtenerTodosAsync(CancellationToken tokenCancelacion = default)
     {
         const string consulta = """
@@ -52,6 +57,7 @@ public sealed class PrestamoRepositorio
         return prestamos;
     }
 
+    /// <summary>Registra el préstamo y descuenta una unidad disponible en la misma transacción.</summary>
     public async Task RegistrarAsync(
         Prestamo prestamo,
         CancellationToken tokenCancelacion = default)
@@ -96,6 +102,7 @@ public sealed class PrestamoRepositorio
         await transaccion.CommitAsync(tokenCancelacion);
     }
 
+    /// <summary>Actualiza un préstamo activo y ajusta existencias si cambia el libro.</summary>
     public async Task ActualizarAsync(
         Prestamo prestamo,
         CancellationToken tokenCancelacion = default)
@@ -164,6 +171,7 @@ public sealed class PrestamoRepositorio
         await transaccion.CommitAsync(tokenCancelacion);
     }
 
+    /// <summary>Marca como devuelto el préstamo y repone una unidad disponible.</summary>
     public async Task RegistrarDevolucionAsync(
         int prestamoId,
         DateTime fechaDevolucionReal,
@@ -228,6 +236,7 @@ public sealed class PrestamoRepositorio
         await transaccion.CommitAsync(tokenCancelacion);
     }
 
+    /// <summary>Elimina el préstamo y restaura existencias si aún estaba activo.</summary>
     public async Task EliminarAsync(int prestamoId, CancellationToken tokenCancelacion = default)
     {
         await using var conexion = conexionBaseDatos.CrearConexion();
@@ -279,6 +288,7 @@ public sealed class PrestamoRepositorio
         await transaccion.CommitAsync(tokenCancelacion);
     }
 
+    /// <summary>Agrega los datos del préstamo a la consulta SQL como parámetros.</summary>
     private static void AgregarParametros(SqlCommand comando, Prestamo prestamo)
     {
         comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = prestamo.UsuarioId;
@@ -288,6 +298,7 @@ public sealed class PrestamoRepositorio
             prestamo.FechaDevolucionPrevista.Date;
     }
 
+    /// <summary>Suma o resta un ejemplar disponible dentro de la transacción actual.</summary>
     private static async Task ActualizarExistenciasAsync(
         SqlConnection conexion,
         SqlTransaction transaccion,
