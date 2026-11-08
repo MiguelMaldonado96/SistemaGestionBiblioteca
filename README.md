@@ -28,6 +28,7 @@ SistemaGestionBiblioteca/
 ## Módulos
 
 - Autores: consultar, registrar, actualizar y eliminar, con validación de campos y protección de relaciones.
+- Editoriales: consultar, registrar, actualizar y eliminar; evita nombres duplicados y protege libros relacionados.
 - Libros
 - Editoriales
 - Usuarios
@@ -83,4 +84,4 @@ dotnet run --project SistemaGestionBiblioteca/SistemaGestionBiblioteca.csproj
 
 ## Estado
 
-En desarrollo. La conexión local y la base de datos ya están verificadas; el CRUD de autores es el primer módulo implementado. Los módulos restantes y la documentación final se completarán por etapas.
+En desarrollo. La conexión local y la base de datos ya están verificadas; los módulos CRUD de autores y editoriales están implementados. Los módulos restantes y la documentación final se completarán por etapas.

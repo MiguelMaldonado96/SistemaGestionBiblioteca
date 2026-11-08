@@ -13,12 +13,19 @@ public partial class FormularioPrincipal : Form
         InitializeComponent();
         botonProbarConexion.Click += BotonProbarConexion_Click;
         botonGestionarAutores.Click += BotonGestionarAutores_Click;
+        botonGestionarEditoriales.Click += BotonGestionarEditoriales_Click;
     }
 
     private void BotonGestionarAutores_Click(object? remitente, EventArgs argumentos)
     {
         using var formularioAutores = new FormularioAutores();
         formularioAutores.ShowDialog(this);
+    }
+
+    private void BotonGestionarEditoriales_Click(object? remitente, EventArgs argumentos)
+    {
+        using var formularioEditoriales = new FormularioEditoriales();
+        formularioEditoriales.ShowDialog(this);
     }
 
     private async void BotonProbarConexion_Click(object? remitente, EventArgs argumentos)
