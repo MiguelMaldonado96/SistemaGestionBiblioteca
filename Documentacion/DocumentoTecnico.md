@@ -261,7 +261,7 @@ La aplicación apunta a la instancia `.\SQL2022`, con autenticación de Windows,
 Para preparar la base:
 
 1. Abrir `BaseDatos/01_CrearBaseDatos.sql` en SSMS y ejecutarlo.
-2. Opcionalmente, ejecutar `BaseDatos/02_DatosDemostracionCapturas.sql`, que crea veinte usuarios ficticios y veinte libros de demostración sin duplicarlos al repetir el script.
+2. Opcionalmente, ejecutar `BaseDatos/02_DatosDemostracionCapturas.sql`, que crea veinte usuarios ficticios, veinte libros de demostración y un préstamo devuelto de muestra, sin duplicarlos al repetir el script.
 3. Revisar el servidor configurado en `App.config`.
 4. Compilar la solución y ejecutar el proyecto desde Visual Studio o con `dotnet`.
 
@@ -269,7 +269,7 @@ Para preparar la base:
 
 Se verificaron la compilación, los criterios de búsqueda de libros y la consistencia de los datos en SQL Server. La matriz, los comandos ejecutados, los resultados y las limitaciones conocidas están en [InformeDePruebas.md](./InformeDePruebas.md).
 
-La base de desarrollo revisada contiene veintiún usuarios, veintiún libros, un préstamo activo y un préstamo devuelto. Las consultas de consistencia confirmaron que los libros tienen autores y que las cantidades disponibles coinciden con las existencias totales menos los préstamos activos.
+La base de desarrollo revisada contiene veintiún usuarios, veintiún libros, un préstamo activo y un préstamo devuelto. El script de demostración agrega el préstamo devuelto sin modificar las existencias. Las consultas de consistencia confirmaron que los libros tienen autores y que las cantidades disponibles coinciden con las existencias totales menos los préstamos activos.
 
 ## 11. Capturas de pantalla
 

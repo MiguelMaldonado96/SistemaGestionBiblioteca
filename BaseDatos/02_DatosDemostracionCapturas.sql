@@ -145,6 +145,28 @@ WHERE NOT EXISTS
       AND relacionExistente.AutorId = autorExistente.AutorId
 );
 
+-- Agrega un préstamo devuelto de muestra sin modificar las existencias.
+INSERT INTO dbo.Prestamos
+    (UsuarioId, LibroId, FechaPrestamo, FechaDevolucionPrevista, FechaDevolucionReal)
+SELECT
+    usuario.UsuarioId,
+    libro.LibroId,
+    DATEADD(DAY, -14, CONVERT(DATE, GETDATE())),
+    DATEADD(DAY, -7, CONVERT(DATE, GETDATE())),
+    DATEADD(DAY, -7, CONVERT(DATE, GETDATE()))
+FROM dbo.Usuarios AS usuario
+CROSS JOIN dbo.Libros AS libro
+WHERE usuario.Documento = N'DEMO-0001'
+  AND libro.Codigo = N'COL-001'
+  AND NOT EXISTS
+  (
+      SELECT 1
+      FROM dbo.Prestamos AS prestamo
+      WHERE prestamo.UsuarioId = usuario.UsuarioId
+        AND prestamo.LibroId = libro.LibroId
+        AND prestamo.FechaDevolucionReal IS NOT NULL
+  );
+
     COMMIT TRANSACTION;
 END TRY
 BEGIN CATCH
@@ -161,6 +183,8 @@ GO
 SELECT
     (SELECT COUNT(*) FROM dbo.Usuarios WHERE Documento LIKE N'DEMO-%') AS UsuariosDemostracion,
     (SELECT COUNT(*) FROM dbo.Libros WHERE Codigo LIKE N'COL-%') AS LibrosDemostracion,
+    (SELECT COUNT(*) FROM dbo.Prestamos WHERE FechaDevolucionReal IS NULL) AS PrestamosActivos,
+    (SELECT COUNT(*) FROM dbo.Prestamos WHERE FechaDevolucionReal IS NOT NULL) AS PrestamosDevueltos,
     (SELECT COUNT(*) FROM dbo.Autores AS autor
      WHERE EXISTS
      (

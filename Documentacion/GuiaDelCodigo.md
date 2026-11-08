@@ -63,7 +63,7 @@ Los formularios cargan la información al abrirse. Al seleccionar una fila, llen
 ### Base de datos
 
 - `BaseDatos/01_CrearBaseDatos.sql`: crea la base `SistemaGestionBiblioteca`, sus tablas y relaciones; agrega restricciones e índices, y carga datos de ejemplo cuando todavía no existen.
-- `BaseDatos/02_DatosDemostracionCapturas.sql`: agrega 20 usuarios ficticios y 20 libros de autores colombianos para las capturas. Se puede ejecutar más de una vez sin duplicar esos registros; la editorial indicada es solo de demostración.
+- `BaseDatos/02_DatosDemostracionCapturas.sql`: agrega 20 usuarios ficticios, 20 libros de autores colombianos y un préstamo devuelto de muestra para las capturas. Se puede ejecutar más de una vez sin duplicar esos datos; la editorial indicada es solo de demostración.
 - `Documentacion/ModeloDeDatos.md`: describe las tablas y las relaciones de la base de datos.
 - `Documentacion/Capturas/`: contiene las imágenes de las pantallas y de las operaciones realizadas para la evidencia del proyecto.
 - `Documentacion/DocumentoTecnico.md`: reúne los apartados académicos de la entrega.

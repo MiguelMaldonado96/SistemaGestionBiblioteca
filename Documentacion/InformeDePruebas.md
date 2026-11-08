@@ -30,8 +30,9 @@ Registrar verificaciones reproducibles de la compilación, la búsqueda de libro
 | P12 | Verificar volumen de datos de demostración. | 20 usuarios y 20 libros de demostración, sin duplicados. | 20 usuarios con documento `DEMO-*` y 20 libros con código `COL-*`; la base también conserva el usuario y el libro iniciales. | Aprobada |
 | P13 | Conectar al nombre de instancia que pide la consigna. | Acceder a `.\SQL2022`. | La conexión respondió con instancia `SQL2022`, versión `16.0.1000.6` y edición Developer. | Aprobada |
 | P14 | Revisar paquetes con vulnerabilidades conocidas. | Sin paquetes reportados como vulnerables en el proyecto. | `dotnet list ... package --vulnerable --include-transitive` no reportó paquetes vulnerables. | Aprobada |
-| P15 | Crear la base en la instancia nombrada y cargar datos de demostración. | 20 usuarios y 20 libros de demostración, más los datos iniciales. | La base `SistemaGestionBiblioteca` quedó creada en `.\SQL2022`: 21 usuarios, 21 libros, 20 usuarios y 20 libros de demostración. | Aprobada |
+| P15 | Crear la base en la instancia nombrada y cargar datos de demostración. | 20 usuarios y 20 libros de demostración, más un préstamo activo y uno devuelto. | La base `SistemaGestionBiblioteca` quedó creada en `.\SQL2022`: 21 usuarios, 21 libros, 20 usuarios y 20 libros de demostración, un préstamo activo y uno devuelto. | Aprobada |
 | P16 | Probar la conexión configurada por la aplicación. | Leer `App.config` y abrir SQL Server con autenticación integrada. | `ConexionBaseDatos` leyó `.\SQL2022` y abrió la base correctamente con `Encrypt=True` y `TrustServerCertificate=True`. | Aprobada |
+| P17 | Ejecutar dos veces el script de datos de demostración. | Conservar un préstamo activo y uno devuelto sin duplicar datos ni alterar el inventario. | La primera ejecución agregó el préstamo devuelto de muestra; la segunda no duplicó registros. La base conserva 1 préstamo activo, 1 devuelto y existencias coherentes. | Aprobada |
 
 ## Casos de búsqueda ejecutados
 
@@ -54,11 +55,11 @@ Las consultas de solo lectura ejecutadas en la base de desarrollo de `.\SQL2022`
 | Usuarios de demostración | 20 |
 | Libros de demostración | 20 |
 
-La devolución se confirma también en las capturas `20-Devolucion-registrada.png` y `21-Reporte-historial-devolucion.png`.
+El script `02_DatosDemostracionCapturas.sql` registra de forma idempotente un préstamo devuelto de muestra para `DEMO-0001` y `COL-001`, sin cambiar las existencias porque el préstamo ya está devuelto. Se ejecutó dos veces en `.\SQL2022` y el conteo permaneció en un préstamo activo y uno devuelto. La devolución se confirma también en las capturas `20-Devolucion-registrada.png` y `21-Reporte-historial-devolucion.png`.
 
 ## Incidencias y limitaciones
 
-- La instancia predeterminada `localhost` y la instancia nombrada `.\SQL2022` son instalaciones separadas. La base y los datos demostrativos se prepararon en ambas; la aplicación apunta a `.\SQL2022`.
+- La instancia predeterminada `localhost` y la instancia nombrada `.\SQL2022` son instalaciones separadas. La aplicación y la verificación de este informe apuntan a `.\SQL2022`; `localhost` se conserva sin cambios.
 - La restauración del harness temporal mostró avisos NuGet `NU1902` y `NU1903` relativos a `System.Security.Cryptography.Pkcs 9.0.18`. La auditoría de paquetes del proyecto real no reportó paquetes vulnerables; los avisos corresponden al restore del harness temporal y no se incorporó ese proyecto al repositorio.
 - Las pruebas de búsqueda validan la lógica usada por la interfaz, pero no sustituyen una prueba de aceptación manual del formulario en el equipo de entrega.
 - La matriz documenta las verificaciones ejecutadas para esta iteración; antes de una entrega definitiva se recomienda repetir los flujos CRUD, préstamos y devoluciones desde la interfaz conectada al servidor final.

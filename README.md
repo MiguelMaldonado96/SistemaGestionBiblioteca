@@ -66,7 +66,7 @@ Las operaciones usan validaciones para los campos y las fechas, restricciones de
 
 La base de datos `SistemaGestionBiblioteca` contiene las tablas `Autores`, `Editoriales`, `Usuarios`, `Libros`, `LibroAutores` y `Prestamos`. Sus relaciones, restricciones, índices y datos iniciales están definidos en `BaseDatos/01_CrearBaseDatos.sql`.
 
-Para poblar las pantallas con datos de demostración, `BaseDatos/02_DatosDemostracionCapturas.sql` agrega veinte usuarios ficticios y veinte libros de autores colombianos. Los usuarios usan correos del dominio reservado `.invalid`. El script puede ejecutarse nuevamente sin duplicar esos registros.
+Para poblar las pantallas con datos de demostración, `BaseDatos/02_DatosDemostracionCapturas.sql` agrega veinte usuarios ficticios, veinte libros de autores colombianos, un préstamo activo inicial y un préstamo devuelto de muestra. Los usuarios usan correos del dominio reservado `.invalid`. El script puede ejecutarse nuevamente sin duplicar esos registros ni alterar las existencias por el préstamo ya devuelto.
 
 ## Requisitos para ejecutar
 
