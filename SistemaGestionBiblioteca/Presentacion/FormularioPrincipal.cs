@@ -17,6 +17,7 @@ public partial class FormularioPrincipal : Form
         botonGestionarUsuarios.Click += BotonGestionarUsuarios_Click;
         botonGestionarLibros.Click += BotonGestionarLibros_Click;
         botonGestionarPrestamos.Click += BotonGestionarPrestamos_Click;
+        botonGestionarReportes.Click += BotonGestionarReportes_Click;
     }
 
     private void BotonGestionarAutores_Click(object? remitente, EventArgs argumentos)
@@ -47,6 +48,12 @@ public partial class FormularioPrincipal : Form
     {
         using var formularioPrestamos = new FormularioPrestamos();
         formularioPrestamos.ShowDialog(this);
+    }
+
+    private void BotonGestionarReportes_Click(object? remitente, EventArgs argumentos)
+    {
+        using var formularioReportes = new FormularioReportes();
+        formularioReportes.ShowDialog(this);
     }
 
     private async void BotonProbarConexion_Click(object? remitente, EventArgs argumentos)

@@ -32,6 +32,7 @@ SistemaGestionBiblioteca/
 - Usuarios: consultar, registrar, actualizar y eliminar; valida documento y correo, y protege préstamos relacionados.
 - Libros: gestionar relaciones con autores y editoriales, el ISBN y la cantidad de ejemplares disponibles.
 - Préstamos y devoluciones: registrar, consultar, actualizar y eliminar movimientos; valida fechas y disponibilidad, y ajusta existencias de forma transaccional.
+- Reportes: resumen, libros, autores, editoriales, usuarios, préstamos activos e historial de devoluciones.
 - Editoriales
 - Usuarios
 - Préstamos y devoluciones
@@ -86,4 +87,4 @@ dotnet run --project SistemaGestionBiblioteca/SistemaGestionBiblioteca.csproj
 
 ## Estado
 
-En desarrollo. La conexión local y la base de datos ya están verificadas; los módulos de autores, editoriales, usuarios, libros y préstamos/devoluciones están implementados. El módulo de reportes y la documentación final se completarán por etapas.
+En desarrollo. La conexión local y la base de datos ya están verificadas; los módulos principales, incluido Reportes, están implementados. Falta completar las pruebas de la interfaz y la documentación final.
