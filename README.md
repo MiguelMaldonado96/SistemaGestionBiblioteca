@@ -34,6 +34,15 @@ SistemaGestionBiblioteca/
 - Préstamos y devoluciones
 - Consultas y reportes
 
+## Base de datos
+
+El script inicial y el modelo entidad-relación con diccionario de datos están en:
+
+- `BaseDatos/01_CrearBaseDatos.sql`
+- `Documentacion/ModeloDeDatos.md`
+
+Ejecuta el script desde SQL Server Management Studio para crear la base de datos e insertar registros de prueba.
+
 ## Arquitectura
 
 La interfaz, la lógica de negocio y el acceso a datos se mantendrán separados en sus respectivas carpetas. La base de datos relacional almacenará las entidades y sus relaciones, con claves y restricciones de integridad.
@@ -62,4 +71,4 @@ dotnet run --project SistemaGestionBiblioteca/SistemaGestionBiblioteca.csproj
 
 ## Estado
 
-En desarrollo. La estructura de la solución, el modelo de datos y las instrucciones de configuración se completarán durante la implementación.
+En desarrollo. La estructura inicial de la solución y el modelo relacional están definidos. La interfaz, las operaciones de negocio, la conexión a SQL Server y la documentación final se completarán en los siguientes pasos.
