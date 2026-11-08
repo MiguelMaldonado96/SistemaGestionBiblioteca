@@ -74,14 +74,14 @@ Para poblar las pantallas con datos de demostración, `BaseDatos/02_DatosDemostr
 - .NET 10 SDK.
 - Motor de SQL Server y SQL Server Management Studio (SSMS).
 
-SSMS es el cliente de administración; también se necesita el motor de SQL Server. La consigna indica conectar en SSMS a `.\SQL2022` con autenticación de Windows, **Cifrar: Obligatorio** y **Certificado de servidor de confianza**.
+SSMS es el cliente de administración; también se necesita el motor de SQL Server. La consigna indica conectar en SSMS a `.\SQL2022` con autenticación de Windows, **Cifrar: Obligatorio** y **Certificado de servidor de confianza**. Los scripts SQL están guardados en UTF-8 con BOM para conservar correctamente tildes y eñes al abrirlos en SSMS. Si se ejecutan con `sqlcmd`, especifica la página de códigos UTF-8 con `-f 65001`.
 
 La conexión guardada en `SistemaGestionBiblioteca/App.config` apunta a `.\SQL2022`, que se verificó con autenticación de Windows. La instancia predeterminada `localhost` se conserva en paralelo y no se modificó. La cadena usa cifrado obligatorio y certificado de servidor de confianza; no contiene contraseñas.
 
 ## Preparar, compilar y ejecutar
 
 1. Abre `BaseDatos/01_CrearBaseDatos.sql` en SSMS y ejecuta el script para crear la base y los datos iniciales.
-2. Opcionalmente, ejecuta `BaseDatos/02_DatosDemostracionCapturas.sql` para cargar los datos de demostración.
+2. Ejecuta `BaseDatos/02_DatosDemostracionCapturas.sql` para cargar los datos de demostración y normalizar los textos de libros, autores y editorial existentes.
 3. La cadena de `SistemaGestionBiblioteca/App.config` ya apunta a `.\SQL2022`; ajústala solo si ejecutarás el proyecto contra otra instancia.
 4. Desde la carpeta del repositorio, compila y ejecuta:
 

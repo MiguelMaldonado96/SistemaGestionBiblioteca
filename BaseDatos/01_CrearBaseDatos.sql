@@ -1,4 +1,4 @@
--- Crea la base de datos solo si todavía no existe.
+﻿-- Crea la base de datos solo si todavía no existe.
 IF DB_ID(N'SistemaGestionBiblioteca') IS NULL
 BEGIN
     CREATE DATABASE [SistemaGestionBiblioteca];

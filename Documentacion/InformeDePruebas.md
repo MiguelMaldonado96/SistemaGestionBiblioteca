@@ -33,6 +33,7 @@ Registrar verificaciones reproducibles de la compilación, la búsqueda de libro
 | P15 | Crear la base en la instancia nombrada y cargar datos de demostración. | 20 usuarios y 20 libros de demostración, más un préstamo activo y uno devuelto. | La base `SistemaGestionBiblioteca` quedó creada en `.\SQL2022`: 21 usuarios, 21 libros, 20 usuarios y 20 libros de demostración, un préstamo activo y uno devuelto. | Aprobada |
 | P16 | Probar la conexión configurada por la aplicación. | Leer `App.config` y abrir SQL Server con autenticación integrada. | `ConexionBaseDatos` leyó `.\SQL2022` y abrió la base correctamente con `Encrypt=True` y `TrustServerCertificate=True`. | Aprobada |
 | P17 | Ejecutar dos veces el script de datos de demostración. | Conservar un préstamo activo y uno devuelto sin duplicar datos ni alterar el inventario. | La primera ejecución agregó el préstamo devuelto de muestra; la segunda no duplicó registros. La base conserva 1 préstamo activo, 1 devuelto y existencias coherentes. | Aprobada |
+| P18 | Verificar tildes y eñes en los datos de demostración. | Títulos, autores y editorial se leen correctamente en SQL Server y en el formulario. | El script actualizó los textos del catálogo existente; `Cien años de soledad`, `García Márquez`, `Andrés Caicedo`, `¡Que viva la música!` y `Editorial de demostración` se leen correctamente. La ejecución con UTF-8 evita volver a corromperlos. | Aprobada |
 
 ## Casos de búsqueda ejecutados
 
@@ -56,6 +57,8 @@ Las consultas de solo lectura ejecutadas en la base de desarrollo de `.\SQL2022`
 | Libros de demostración | 20 |
 
 El script `02_DatosDemostracionCapturas.sql` registra de forma idempotente un préstamo devuelto de muestra para `DEMO-0001` y `COL-001`, sin cambiar las existencias porque el préstamo ya está devuelto. Se ejecutó dos veces en `.\SQL2022` y el conteo permaneció en un préstamo activo y uno devuelto. La devolución se confirma también en las capturas `20-Devolucion-registrada.png` y `21-Reporte-historial-devolucion.png`.
+
+Los scripts SQL usan codificación UTF-8 con BOM y se ejecutaron con la página de códigos UTF-8. El script de demostración normalizó los títulos, autores y editorial ya almacenados. Las consultas de verificación confirman que los textos contienen los acentos correctos y que el inventario sigue consistente.
 
 ## Incidencias y limitaciones
 

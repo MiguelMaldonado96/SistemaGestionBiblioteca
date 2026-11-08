@@ -258,6 +258,8 @@ La aplicación lee la cadena llamada `Biblioteca` desde `SistemaGestionBibliotec
 
 La aplicación apunta a la instancia `.\SQL2022`, con autenticación de Windows, cifrado y certificado de servidor de confianza. La conexión y la base se verificaron en SQL Server 2022 Developer, versión `16.0.1000.6`. La instancia predeterminada `localhost` se conserva en paralelo, sin cambios. En otra máquina se debe configurar `App.config` para apuntar a la instancia que esté instalada.
 
+Los scripts SQL se guardan en UTF-8 con BOM para conservar los caracteres españoles al ejecutarlos desde SSMS. Al ejecutarlos con `sqlcmd`, se debe indicar la página de códigos UTF-8 (`-f 65001`). El script de datos de demostración también normaliza títulos, autores y editoriales existentes, por lo que corrige registros que se hayan importado con una codificación distinta.
+
 Para preparar la base:
 
 1. Abrir `BaseDatos/01_CrearBaseDatos.sql` en SSMS y ejecutarlo.

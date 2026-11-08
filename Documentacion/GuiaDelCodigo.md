@@ -63,13 +63,14 @@ Los formularios cargan la información al abrirse. Al seleccionar una fila, llen
 ### Base de datos
 
 - `BaseDatos/01_CrearBaseDatos.sql`: crea la base `SistemaGestionBiblioteca`, sus tablas y relaciones; agrega restricciones e índices, y carga datos de ejemplo cuando todavía no existen.
-- `BaseDatos/02_DatosDemostracionCapturas.sql`: agrega 20 usuarios ficticios, 20 libros de autores colombianos y un préstamo devuelto de muestra para las capturas. Se puede ejecutar más de una vez sin duplicar esos datos; la editorial indicada es solo de demostración.
+- `BaseDatos/02_DatosDemostracionCapturas.sql`: agrega 20 usuarios ficticios, 20 libros de autores colombianos y un préstamo devuelto de muestra para las capturas. También repara los nombres de libros, autores y editorial del catálogo de demostración si se guardaron con una codificación incorrecta. Se puede ejecutar más de una vez sin duplicar esos datos; la editorial indicada es solo de demostración.
 - `Documentacion/ModeloDeDatos.md`: describe las tablas y las relaciones de la base de datos.
 - `Documentacion/Capturas/`: contiene las imágenes de las pantallas y de las operaciones realizadas para la evidencia del proyecto.
 - `Documentacion/DocumentoTecnico.md`: reúne los apartados académicos de la entrega.
 - `Documentacion/InformeDePruebas.md`: registra las verificaciones ejecutadas y las limitaciones del entorno.
 
 El script se puede volver a ejecutar sin volver a crear objetos o registros de ejemplo que ya existen.
+Los scripts están guardados como UTF-8 con BOM para que SQL Server Management Studio conserve correctamente las tildes y las eñes. Al ejecutarlos con `sqlcmd`, se debe indicar `-f 65001`.
 
 ## Reglas importantes
 

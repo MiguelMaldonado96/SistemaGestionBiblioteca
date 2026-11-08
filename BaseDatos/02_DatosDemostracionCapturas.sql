@@ -1,4 +1,4 @@
--- Agrega registros de demostracion para completar las capturas de pantalla.
+﻿-- Agrega registros de demostracion para completar las capturas de pantalla.
 -- Los usuarios son ficticios y sus correos usan el dominio reservado .invalid.
 USE [SistemaGestionBiblioteca];
 GO
@@ -57,6 +57,18 @@ WHERE NOT EXISTS
     WHERE usuarioExistente.Documento = usuario.Documento
 );
 
+-- Corrige el texto de la editorial asociada al catálogo de demostración.
+UPDATE editorial
+SET Nombre = N'Editorial de demostración',
+    Pais = N'Colombia'
+FROM dbo.Editoriales AS editorial
+WHERE editorial.EditorialId =
+(
+    SELECT TOP (1) libro.EditorialId
+    FROM dbo.Libros AS libro
+    WHERE libro.Codigo = N'COL-001'
+);
+
 IF NOT EXISTS
 (
     SELECT 1
@@ -100,6 +112,22 @@ VALUES
     (N'COL-018', N'La multitud errante', 2001, N'Laura', N'Restrepo'),
     (N'COL-019', N'Plegarias nocturnas', 2012, N'Santiago', N'Gamboa'),
     (N'COL-020', N'El día del odio', 1952, N'José Antonio Osorio', N'Lizarazo');
+
+-- Repara nombres que pudieron guardarse con una codificación incorrecta.
+UPDATE libro
+SET Titulo = demostracion.Titulo
+FROM dbo.Libros AS libro
+INNER JOIN @librosDemostracion AS demostracion
+    ON demostracion.Codigo = libro.Codigo;
+
+UPDATE autor
+SET Nombre = demostracion.NombreAutor,
+    Apellido = demostracion.ApellidoAutor
+FROM dbo.Autores AS autor
+INNER JOIN dbo.LibroAutores AS relacion ON relacion.AutorId = autor.AutorId
+INNER JOIN dbo.Libros AS libro ON libro.LibroId = relacion.LibroId
+INNER JOIN @librosDemostracion AS demostracion
+    ON demostracion.Codigo = libro.Codigo;
 
 INSERT INTO dbo.Autores (Nombre, Apellido)
 SELECT DISTINCT libro.NombreAutor, libro.ApellidoAutor
