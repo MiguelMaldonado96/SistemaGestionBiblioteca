@@ -1,89 +1,108 @@
 # Sistema de Gestión de Biblioteca
 
-Aplicación de escritorio para administrar la información y los procesos de una biblioteca educativa. El proyecto se desarrolla como trabajo final de Programación Avanzada.
+Aplicación de escritorio para administrar una biblioteca educativa. Este proyecto es el trabajo final de Programación Avanzada y se desarrolla con C#, Windows Forms y SQL Server.
 
 ## Tecnologías
 
-- C# y Windows Forms sobre .NET 10
-- SQL Server
-- Git y GitHub
+- C# y Windows Forms con .NET 10 (`net10.0-windows`).
+- SQL Server y `Microsoft.Data.SqlClient`.
+- Git y GitHub para el control de versiones.
 
-## Estructura
+## Estructura real del repositorio
 
-La aplicación inicia como un único proyecto Windows Forms organizado por carpetas:
+La solución contiene un solo proyecto WinForms. Las carpetas `Presentacion`, `Negocio`, `Datos` y `Entidades` son capas dentro de ese proyecto; no son proyectos separados.
 
 ```text
-SistemaGestionBiblioteca/
-├── Presentacion/
-├── Negocio/
-├── Datos/
-└── Entidades/
+.
+├── SistemaGestionBiblioteca.slnx
+├── SistemaGestionBiblioteca/
+│   ├── SistemaGestionBiblioteca.csproj
+│   ├── App.config
+│   ├── Presentacion/
+│   │   ├── Program.cs
+│   │   ├── FormularioPrincipal.cs
+│   │   ├── FormularioPrincipal.Designer.cs
+│   │   ├── FormularioLibros.cs
+│   │   ├── FormularioUsuarios.cs
+│   │   ├── FormularioAutores.cs
+│   │   ├── FormularioEditoriales.cs
+│   │   ├── FormularioPrestamos.cs
+│   │   ├── FormularioReportes.cs
+│   │   └── EstiloInterfazBiblioteca.cs
+│   ├── Negocio/
+│   │   └── Servicios y validaciones
+│   ├── Datos/
+│   │   └── Conexión y repositorios SQL
+│   └── Entidades/
+│       └── Autor, Editorial, Libro, Prestamo y Usuario
+├── BaseDatos/
+│   ├── 01_CrearBaseDatos.sql
+│   └── 02_DatosDemostracionCapturas.sql
+├── Documentacion/
+│   ├── Capturas/
+│   ├── GuiaDelCodigo.md
+│   └── ModeloDeDatos.md
+├── .gitignore
+└── README.md
 ```
 
-- `Presentacion`: formularios y navegación de la aplicación.
-- `Negocio`: reglas y validaciones del sistema.
-- `Datos`: conexión y operaciones con SQL Server.
-- `Entidades`: clases que representan los datos del sistema.
+La presentación llama a los servicios de negocio, estos aplican validaciones y usan los repositorios para consultar o actualizar SQL Server. Las entidades representan los datos que pasan entre las capas.
 
-## Módulos
+## Funcionalidades implementadas
 
-- Autores: consultar, registrar, actualizar y eliminar, con validación de campos y protección de relaciones.
-- Editoriales: consultar, registrar, actualizar y eliminar; evita nombres duplicados y protege libros relacionados.
-- Usuarios: consultar, registrar, actualizar y eliminar; valida documento y correo, y protege préstamos relacionados.
-- Libros: gestionar relaciones con autores y editoriales, el ISBN y la cantidad de ejemplares disponibles.
-- Préstamos y devoluciones: registrar, consultar, actualizar y eliminar movimientos; valida fechas y disponibilidad, y ajusta existencias de forma transaccional.
-- Reportes: resumen, libros, autores, editoriales, usuarios, préstamos activos e historial de devoluciones.
+- **Inicio:** navegación entre Inicio, Libros, Usuarios, Autores, Editoriales, Préstamos y Reportes; incluye una prueba de conexión.
+- **Libros:** registrar, listar, editar y eliminar libros; relacionarlos con autores y editoriales, y controlar existencias.
+- **Usuarios:** registrar, listar, editar y eliminar usuarios, con validaciones de documento y correo y protección de registros relacionados con préstamos.
+- **Autores:** registrar, listar, editar y eliminar autores, respetando las relaciones con libros.
+- **Editoriales:** registrar, listar, editar y eliminar editoriales, respetando las relaciones con libros.
+- **Préstamos y devoluciones:** registrar, consultar, actualizar y eliminar préstamos; registrar devoluciones y mantener sincronizadas las existencias mediante transacciones.
+- **Reportes:** resumen general, libros, autores, editoriales, usuarios, préstamos activos e historial de devoluciones.
 
-## Base de datos
+Las operaciones usan validaciones para los campos y las fechas, restricciones de unicidad para los datos definidos en la base y mensajes en la interfaz para informar errores y resultados.
 
-El script inicial y el modelo entidad-relación con diccionario de datos están en:
+## Base de datos y datos de demostración
 
-- `BaseDatos/01_CrearBaseDatos.sql`
-- `BaseDatos/02_DatosDemostracionCapturas.sql`: agrega de forma repetible 20 usuarios ficticios y 20 libros de autores colombianos para poblar las pantallas.
-- `Documentacion/ModeloDeDatos.md`
-- `Documentacion/GuiaDelCodigo.md`: explica en lenguaje sencillo para qué sirve cada carpeta y archivo del código.
-- `Documentacion/Capturas/`: evidencia visual de los módulos, reportes y registro de una devolución.
+La base de datos `SistemaGestionBiblioteca` contiene las tablas `Autores`, `Editoriales`, `Usuarios`, `Libros`, `LibroAutores` y `Prestamos`. Sus relaciones, restricciones, índices y datos iniciales están definidos en `BaseDatos/01_CrearBaseDatos.sql`.
 
-Ejecuta `01_CrearBaseDatos.sql` desde SQL Server Management Studio para crear la base de datos e insertar registros de prueba. Para poblar las pantallas con más datos de ejemplo, ejecuta también `02_DatosDemostracionCapturas.sql`.
-
-## Arquitectura
-
-La interfaz, la lógica de negocio y el acceso a datos se mantendrán separados en sus respectivas carpetas. La base de datos relacional almacenará las entidades y sus relaciones, con claves y restricciones de integridad.
-
-## Convención de nombres
-
-Los nombres de variables y controles serán descriptivos, en español y con formato `camelCase`.
+Para poblar las pantallas con datos de demostración, `BaseDatos/02_DatosDemostracionCapturas.sql` agrega veinte usuarios ficticios y veinte libros de autores colombianos. Los usuarios usan correos del dominio reservado `.invalid`. El script puede ejecutarse nuevamente sin duplicar esos registros.
 
 ## Requisitos para ejecutar
 
-- Windows
-- .NET 10 SDK
-- SQL Server 2022 Database Engine instalado como instancia `SQL2022`
-- SQL Server Management Studio (SSMS)
+- Windows.
+- .NET 10 SDK.
+- Motor de SQL Server y SQL Server Management Studio (SSMS).
 
-SSMS es el cliente gráfico; para conectarse se necesita también el motor de SQL Server. La cadena `Biblioteca` de `SistemaGestionBiblioteca/App.config` usa autenticación de Windows, cifrado obligatorio y certificado de servidor de confianza. Para desarrollo en este equipo apunta temporalmente a `localhost`, que corresponde a la instancia instalada `MSSQLSERVER`. Cuando esté instalada la instancia nombrada solicitada por la docente, cambia el servidor a `.\SQL2022`. No se almacenan credenciales.
+SSMS es el cliente de administración; también se necesita el motor de SQL Server. La consigna indica conectar en SSMS a `.\SQL2022` con autenticación de Windows, **Cifrar: Obligatorio** y **Certificado de servidor de confianza**.
 
-En SSMS configura la conexión así:
+La conexión guardada en `SistemaGestionBiblioteca/App.config` apunta actualmente a `localhost`, que es la instancia local usada para desarrollar y probar el proyecto en este equipo. Si vas a usar la instancia que pide la consigna, cambia `Server=localhost` por `Server=.\SQL2022`. La conexión usa autenticación de Windows, cifrado y certificado de servidor de confianza; no contiene contraseñas.
 
-1. Nombre del servidor: `.\SQL2022`.
-2. Autenticación: **Autenticación de Windows**.
-3. En las opciones de conexión, establece **Cifrar** en **Obligatorio** y marca **Certificado de servidor de confianza**.
-4. Selecciona **Conectar**.
+## Preparar, compilar y ejecutar
 
-La aplicación incluye un botón **Probar conexión** para verificar los parámetros configurados en `App.config`. Ejecuta `BaseDatos/01_CrearBaseDatos.sql` en SSMS para crear la base de datos.
-
-Para compilar la solución:
+1. Abre `BaseDatos/01_CrearBaseDatos.sql` en SSMS y ejecuta el script para crear la base y los datos iniciales.
+2. Opcionalmente, ejecuta `BaseDatos/02_DatosDemostracionCapturas.sql` para cargar los datos de demostración.
+3. Configura el servidor en `SistemaGestionBiblioteca/App.config` según la instancia de SQL Server que usarás.
+4. Desde la carpeta del repositorio, compila y ejecuta:
 
 ```powershell
 dotnet build SistemaGestionBiblioteca.slnx
-```
-
-Para ejecutar la aplicación:
-
-```powershell
 dotnet run --project SistemaGestionBiblioteca/SistemaGestionBiblioteca.csproj
 ```
 
-## Estado
+## Documentación y capturas
 
-En desarrollo. La conexión local y la base de datos ya están verificadas; los módulos principales, incluido Reportes, están implementados. La interfaz y la guía de código están documentadas. Quedan pendientes las capturas de pantalla para la entrega.
+- [Guía del código](Documentacion/GuiaDelCodigo.md): explica las capas y los archivos principales.
+- [Modelo de datos](Documentacion/ModeloDeDatos.md): incluye el diagrama entidad-relación y el diccionario de datos.
+- [Capturas de pantalla](Documentacion/Capturas/): evidencia de los módulos, reportes y registro de una devolución.
+
+## Estado frente a la consigna
+
+Están implementados los módulos principales, la base de datos relacional, la arquitectura en capas dentro del proyecto, las validaciones, el manejo de errores en la interfaz y los reportes. El repositorio incluye la guía del código, el modelo de datos y las capturas; estos archivos todavía no conforman el documento técnico completo solicitado en el PDF.
+
+Pendientes para completar todos los requisitos y entregables del PDF:
+
+- Agregar búsqueda de libros por código, título o autor; actualmente se pueden consultar y listar, pero no hay un control de búsqueda específico.
+- Preparar el documento técnico en Markdown con las secciones solicitadas: portada y contraportada, introducción, objetivos, tabla de contenido, planteamiento del problema, requerimientos, casos de uso, diagrama de clases, modelo entidad-relación, diccionario de datos, arquitectura, explicación de módulos, conexión a SQL Server, capturas, pruebas, conclusiones, recomendaciones y referencias en formato APA.
+- Incorporar al documento los resultados de las pruebas de funcionamiento. Las capturas actuales muestran pantallas y algunas operaciones, pero no sustituyen por sí solas el informe de pruebas solicitado.
+- Verificar la configuración final contra el entorno de entrega: este equipo usa `localhost`; la consigna de SSMS indica la instancia `.\SQL2022`.
+
+El repositorio contiene el código fuente, los scripts SQL, esta documentación, las capturas y el historial de commits.
