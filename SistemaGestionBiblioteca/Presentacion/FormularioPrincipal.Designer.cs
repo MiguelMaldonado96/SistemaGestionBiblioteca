@@ -11,6 +11,7 @@ partial class FormularioPrincipal
     private Button botonGestionarAutores = null!;
     private Button botonGestionarEditoriales = null!;
     private Button botonGestionarUsuarios = null!;
+    private Button botonGestionarLibros = null!;
     private Label etiquetaEstadoConexion = null!;
 
     /// <summary>
@@ -39,6 +40,7 @@ partial class FormularioPrincipal
         botonGestionarAutores = new Button();
         botonGestionarEditoriales = new Button();
         botonGestionarUsuarios = new Button();
+        botonGestionarLibros = new Button();
         etiquetaEstadoConexion = new Label();
         SuspendLayout();
         botonProbarConexion.Location = new Point(32, 92);
@@ -65,6 +67,12 @@ partial class FormularioPrincipal
         botonGestionarUsuarios.TabIndex = 3;
         botonGestionarUsuarios.Text = "Gestionar usuarios";
         botonGestionarUsuarios.UseVisualStyleBackColor = true;
+        botonGestionarLibros.Location = new Point(32, 148);
+        botonGestionarLibros.Name = "botonGestionarLibros";
+        botonGestionarLibros.Size = new Size(190, 36);
+        botonGestionarLibros.TabIndex = 4;
+        botonGestionarLibros.Text = "Gestionar libros";
+        botonGestionarLibros.UseVisualStyleBackColor = true;
         etiquetaEstadoConexion.AutoSize = true;
         etiquetaEstadoConexion.Location = new Point(32, 148);
         etiquetaEstadoConexion.Name = "etiquetaEstadoConexion";
@@ -79,6 +87,7 @@ partial class FormularioPrincipal
         Controls.Add(botonGestionarUsuarios);
         Controls.Add(botonGestionarAutores);
         Controls.Add(botonProbarConexion);
+        Controls.Add(botonGestionarLibros);
         MinimumSize = new Size(880, 360);
         Name = "FormularioPrincipal";
         StartPosition = FormStartPosition.CenterScreen;
