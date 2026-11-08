@@ -58,7 +58,7 @@ Los nombres de variables y controles serán descriptivos, en español y con form
 - SQL Server 2022 Database Engine instalado como instancia `SQL2022`
 - SQL Server Management Studio (SSMS)
 
-SSMS es el cliente gráfico; para conectarse se necesita también el motor de SQL Server. La aplicación usa la cadena `Biblioteca` de `SistemaGestionBiblioteca/App.config`, configurada para la instancia local `.\SQL2022`, autenticación de Windows, cifrado obligatorio y certificado de servidor de confianza. No almacena credenciales.
+SSMS es el cliente gráfico; para conectarse se necesita también el motor de SQL Server. La cadena `Biblioteca` de `SistemaGestionBiblioteca/App.config` usa autenticación de Windows, cifrado obligatorio y certificado de servidor de confianza. Para desarrollo en este equipo apunta temporalmente a `localhost`, que corresponde a la instancia instalada `MSSQLSERVER`. Cuando esté instalada la instancia nombrada solicitada por la docente, cambia el servidor a `.\SQL2022`. No se almacenan credenciales.
 
 En SSMS configura la conexión así:
 
@@ -67,7 +67,7 @@ En SSMS configura la conexión así:
 3. En las opciones de conexión, establece **Cifrar** en **Obligatorio** y marca **Certificado de servidor de confianza**.
 4. Selecciona **Conectar**.
 
-La aplicación incluye un botón **Probar conexión** para verificar esos mismos parámetros. Ejecuta `BaseDatos/01_CrearBaseDatos.sql` en SSMS para crear la base de datos antes de implementar las operaciones.
+La aplicación incluye un botón **Probar conexión** para verificar los parámetros configurados en `App.config`. Ejecuta `BaseDatos/01_CrearBaseDatos.sql` en SSMS para crear la base de datos.
 
 Para compilar la solución:
 
