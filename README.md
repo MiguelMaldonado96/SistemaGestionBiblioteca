@@ -76,13 +76,13 @@ Para poblar las pantallas con datos de demostración, `BaseDatos/02_DatosDemostr
 
 SSMS es el cliente de administración; también se necesita el motor de SQL Server. La consigna indica conectar en SSMS a `.\SQL2022` con autenticación de Windows, **Cifrar: Obligatorio** y **Certificado de servidor de confianza**.
 
-La conexión guardada en `SistemaGestionBiblioteca/App.config` apunta actualmente a `localhost`, que es la instancia local usada para desarrollar y probar el proyecto en este equipo. Si vas a usar la instancia que pide la consigna, cambia `Server=localhost` por `Server=.\SQL2022`. La conexión usa autenticación de Windows, cifrado y certificado de servidor de confianza; no contiene contraseñas.
+La conexión guardada en `SistemaGestionBiblioteca/App.config` apunta a `.\SQL2022`, que se verificó con autenticación de Windows. La instancia predeterminada `localhost` se conserva en paralelo y no se modificó. La cadena usa cifrado obligatorio y certificado de servidor de confianza; no contiene contraseñas.
 
 ## Preparar, compilar y ejecutar
 
 1. Abre `BaseDatos/01_CrearBaseDatos.sql` en SSMS y ejecuta el script para crear la base y los datos iniciales.
 2. Opcionalmente, ejecuta `BaseDatos/02_DatosDemostracionCapturas.sql` para cargar los datos de demostración.
-3. Configura el servidor en `SistemaGestionBiblioteca/App.config` según la instancia de SQL Server que usarás.
+3. La cadena de `SistemaGestionBiblioteca/App.config` ya apunta a `.\SQL2022`; ajústala solo si ejecutarás el proyecto contra otra instancia.
 4. Desde la carpeta del repositorio, compila y ejecuta:
 
 ```powershell
@@ -103,8 +103,8 @@ dotnet run --project SistemaGestionBiblioteca/SistemaGestionBiblioteca.csproj
 
 Están implementados los módulos principales, incluida la búsqueda de libros, la base de datos relacional, la arquitectura en capas dentro del proyecto, las validaciones, el manejo de errores en la interfaz y los reportes. El repositorio incluye el documento técnico en Markdown, el informe de pruebas, la guía del código, el modelo de datos y las capturas.
 
-Pendiente para cerrar la configuración del entorno:
+Configuración del entorno comprobada:
 
-- La instancia SQL Server disponible en este equipo es la predeterminada `MSSQLSERVER` (`localhost`). `.\SQL2022` aún no está instalada; agregarla requiere instalar una segunda instancia y preparar allí la base de datos.
+- La instancia nombrada `.\SQL2022` está instalada y la base de datos está creada con los datos de demostración. La instancia predeterminada `localhost` también continúa funcionando.
 
 El repositorio contiene el código fuente, los scripts SQL, esta documentación, las capturas y el historial de commits.

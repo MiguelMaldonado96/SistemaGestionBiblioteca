@@ -252,11 +252,11 @@ La aplicación lee la cadena llamada `Biblioteca` desde `SistemaGestionBibliotec
 
 ```xml
 <add name="Biblioteca"
-     connectionString="Server=localhost;Database=SistemaGestionBiblioteca;Integrated Security=True;Encrypt=True;TrustServerCertificate=True;Application Name=SistemaGestionBiblioteca"
+     connectionString="Server=.\SQL2022;Database=SistemaGestionBiblioteca;Integrated Security=True;Encrypt=True;TrustServerCertificate=True;Application Name=SistemaGestionBiblioteca"
      providerName="Microsoft.Data.SqlClient" />
 ```
 
-La consigna indica usar en SSMS el servidor `.\SQL2022`, autenticación de Windows, **Cifrar: Obligatorio** y **Certificado de servidor de confianza**. En el equipo usado para el desarrollo se verificó la instancia predeterminada `localhost` (SQL Server 2022, versión `16.0.1000.6`). La conexión a `.\SQL2022` no se pudo establecer en este equipo; por eso la configuración del repositorio sigue apuntando a `localhost`. Antes de ejecutar la entrega en otra máquina se debe instalar o confirmar esa instancia y ajustar `App.config` al nombre que realmente esté disponible.
+La aplicación apunta a la instancia `.\SQL2022`, con autenticación de Windows, cifrado y certificado de servidor de confianza. La conexión y la base se verificaron en SQL Server 2022 Developer, versión `16.0.1000.6`. La instancia predeterminada `localhost` se conserva en paralelo, sin cambios. En otra máquina se debe configurar `App.config` para apuntar a la instancia que esté instalada.
 
 Para preparar la base:
 
@@ -302,7 +302,7 @@ Las capturas completas están en [Capturas](./Capturas/). Incluyen Inicio, CRUD,
 ## 13. Recomendaciones
 
 - Revisar los datos de portada antes de exportar.
-- Confirmar e instalar la instancia `.\SQL2022` requerida para la demostración académica o documentar el servidor asignado.
+- Confirmar que el servicio SQL Server y la instancia `.\SQL2022` estén activos en el equipo de sustentación.
 - Ejecutar los scripts SQL y repetir la matriz de pruebas en el mismo equipo que se usará para sustentar.
 - Exportar este documento a PDF, revisar la tabla de contenido, la numeración automática y los saltos de página.
 - Conservar los usuarios ficticios de demostración separados de los datos reales de personas.
