@@ -10,6 +10,7 @@ partial class FormularioPrincipal
     private Button botonProbarConexion = null!;
     private Button botonGestionarAutores = null!;
     private Button botonGestionarEditoriales = null!;
+    private Button botonGestionarUsuarios = null!;
     private Label etiquetaEstadoConexion = null!;
 
     /// <summary>
@@ -37,6 +38,7 @@ partial class FormularioPrincipal
         botonProbarConexion = new Button();
         botonGestionarAutores = new Button();
         botonGestionarEditoriales = new Button();
+        botonGestionarUsuarios = new Button();
         etiquetaEstadoConexion = new Label();
         SuspendLayout();
         botonProbarConexion.Location = new Point(32, 92);
@@ -57,6 +59,12 @@ partial class FormularioPrincipal
         botonGestionarEditoriales.TabIndex = 2;
         botonGestionarEditoriales.Text = "Gestionar editoriales";
         botonGestionarEditoriales.UseVisualStyleBackColor = true;
+        botonGestionarUsuarios.Location = new Point(656, 92);
+        botonGestionarUsuarios.Name = "botonGestionarUsuarios";
+        botonGestionarUsuarios.Size = new Size(190, 36);
+        botonGestionarUsuarios.TabIndex = 3;
+        botonGestionarUsuarios.Text = "Gestionar usuarios";
+        botonGestionarUsuarios.UseVisualStyleBackColor = true;
         etiquetaEstadoConexion.AutoSize = true;
         etiquetaEstadoConexion.Location = new Point(32, 148);
         etiquetaEstadoConexion.Name = "etiquetaEstadoConexion";
@@ -65,12 +73,13 @@ partial class FormularioPrincipal
         etiquetaEstadoConexion.Text = "Servidor de desarrollo: localhost";
         AcceptButton = botonProbarConexion;
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(800, 450);
+        ClientSize = new Size(880, 450);
         Controls.Add(etiquetaEstadoConexion);
         Controls.Add(botonGestionarEditoriales);
+        Controls.Add(botonGestionarUsuarios);
         Controls.Add(botonGestionarAutores);
         Controls.Add(botonProbarConexion);
-        MinimumSize = new Size(640, 360);
+        MinimumSize = new Size(880, 360);
         Name = "FormularioPrincipal";
         StartPosition = FormStartPosition.CenterScreen;
         Text = "Sistema de Gestión de Biblioteca";
