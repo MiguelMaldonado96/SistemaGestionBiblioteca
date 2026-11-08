@@ -6,7 +6,7 @@ using SistemaGestionBiblioteca.Negocio;
 namespace SistemaGestionBiblioteca.Presentacion;
 
 /// <summary>
-/// Permite consultar y administrar libros, autores, editoriales y existencias.
+/// Permite consultar, buscar y administrar libros, autores, editoriales y existencias.
 /// </summary>
 public sealed class FormularioLibros : Form
 {
@@ -25,7 +25,10 @@ public sealed class FormularioLibros : Form
     private readonly Button botonGuardar = new();
     private readonly Button botonActualizar = new();
     private readonly Button botonEliminar = new();
+    private readonly TextBox campoBusqueda = new();
+    private readonly Button botonLimpiarBusqueda = new();
     private readonly Label etiquetaEstado = new();
+    private List<Libro> librosCargados = [];
     private int? libroIdSeleccionado;
 
     public FormularioLibros()
@@ -112,21 +115,38 @@ public sealed class FormularioLibros : Form
         };
         botonLimpiar.Click += (_, _) => LimpiarSeleccion();
 
+        var etiquetaBusqueda = CrearEtiqueta("Buscar por código, título, ISBN o autor", 24, 322);
+        campoBusqueda.Location = new Point(24, 346);
+        campoBusqueda.Name = "campoBusqueda";
+        campoBusqueda.PlaceholderText = "Escribe el código, título, ISBN o autor";
+        campoBusqueda.Size = new Size(440, 27);
+        campoBusqueda.TextChanged += (_, _) => AplicarFiltroLibros();
+
+        botonLimpiarBusqueda.Location = new Point(474, 340);
+        botonLimpiarBusqueda.Name = "botonLimpiarBusqueda";
+        botonLimpiarBusqueda.Size = new Size(150, 38);
+        botonLimpiarBusqueda.Text = "Limpiar búsqueda";
+        botonLimpiarBusqueda.Click += (_, _) =>
+        {
+            campoBusqueda.Clear();
+            campoBusqueda.Focus();
+        };
+
         etiquetaEstado.AutoSize = true;
-        etiquetaEstado.Location = new Point(24, 326);
+        etiquetaEstado.Location = new Point(24, 390);
         etiquetaEstado.Name = "etiquetaEstado";
         etiquetaEstado.Text = "Registra libros con su editorial, autores y existencias.";
 
         cuadriculaLibros.AllowUserToAddRows = false;
         cuadriculaLibros.AllowUserToDeleteRows = false;
         cuadriculaLibros.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-        cuadriculaLibros.Location = new Point(24, 356);
+        cuadriculaLibros.Location = new Point(24, 420);
         cuadriculaLibros.MultiSelect = false;
         cuadriculaLibros.Name = "cuadriculaLibros";
         cuadriculaLibros.ReadOnly = true;
         cuadriculaLibros.RowHeadersVisible = false;
         cuadriculaLibros.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        cuadriculaLibros.Size = new Size(952, 338);
+        cuadriculaLibros.Size = new Size(952, 274);
         cuadriculaLibros.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         cuadriculaLibros.SelectionChanged += CuadriculaLibros_SelectionChanged;
 
@@ -151,6 +171,9 @@ public sealed class FormularioLibros : Form
             botonActualizar,
             botonEliminar,
             botonLimpiar,
+            etiquetaBusqueda,
+            campoBusqueda,
+            botonLimpiarBusqueda,
             etiquetaEstado,
             cuadriculaLibros
         ]);
@@ -387,9 +410,8 @@ public sealed class FormularioLibros : Form
     {
         try
         {
-            List<Libro> libros = await libroServicio.ObtenerTodosAsync();
-            cuadriculaLibros.DataSource = libros;
-            etiquetaEstado.Text = $"Libros registrados: {libros.Count}.";
+            librosCargados = await libroServicio.ObtenerTodosAsync();
+            cuadriculaLibros.DataSource = librosCargados;
 
             OcultarColumna(nameof(Libro.LibroId));
             OcultarColumna(nameof(Libro.EditorialId));
@@ -403,16 +425,34 @@ public sealed class FormularioLibros : Form
             CambiarTituloColumna(nameof(Libro.CantidadTotal), "Ejemplares");
             CambiarTituloColumna(nameof(Libro.CantidadDisponible), "Disponibles");
             CambiarTituloColumna(nameof(Libro.AutoresTexto), "Autores");
-            cuadriculaLibros.ClearSelection();
-            libroIdSeleccionado = null;
-            botonActualizar.Enabled = false;
-            botonEliminar.Enabled = false;
-            botonGuardar.Enabled = listaEditoriales.Items.Count > 0 && listaAutores.Items.Count > 0;
+            AplicarFiltroLibros();
         }
         catch (SqlException errorSql)
         {
             etiquetaEstado.Text = "No fue posible consultar los libros.";
             MostrarError($"Verifica la conexión con SQL Server.{Environment.NewLine}{errorSql.Message}");
+        }
+    }
+
+    private void AplicarFiltroLibros()
+    {
+        List<Libro> librosFiltrados = LibroServicio.Buscar(librosCargados, campoBusqueda.Text);
+        LimpiarSeleccion();
+        cuadriculaLibros.DataSource = librosFiltrados;
+        cuadriculaLibros.ClearSelection();
+
+        if (string.IsNullOrWhiteSpace(campoBusqueda.Text))
+        {
+            etiquetaEstado.Text = $"Libros registrados: {librosCargados.Count}.";
+        }
+        else if (librosFiltrados.Count == 0)
+        {
+            etiquetaEstado.Text = "No se encontraron libros con ese criterio.";
+        }
+        else
+        {
+            etiquetaEstado.Text =
+                $"Libros encontrados: {librosFiltrados.Count} de {librosCargados.Count}.";
         }
     }
 

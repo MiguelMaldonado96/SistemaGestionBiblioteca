@@ -27,7 +27,7 @@ Los préstamos y devoluciones también actualizan las existencias. Esas dos acci
 - `SistemaGestionBiblioteca/Negocio/AutorServicio.cs`: verifica que nombre y apellido estén completos y respeta sus límites de caracteres.
 - `SistemaGestionBiblioteca/Negocio/EditorialServicio.cs`: comprueba los datos de la editorial y deja el país vacío como valor nulo.
 - `SistemaGestionBiblioteca/Negocio/UsuarioServicio.cs`: comprueba nombre, apellido, documento, longitudes y formato del correo.
-- `SistemaGestionBiblioteca/Negocio/LibroServicio.cs`: revisa código, título, año, editorial, existencias y selección de autores.
+- `SistemaGestionBiblioteca/Negocio/LibroServicio.cs`: revisa código, título, año, editorial, existencias y selección de autores; también filtra el catálogo por código, título, ISBN o autor.
 - `SistemaGestionBiblioteca/Negocio/PrestamoServicio.cs`: revisa que haya usuario y libro, y que las fechas del préstamo y la devolución sean válidas.
 - `SistemaGestionBiblioteca/Negocio/ReporteServicio.cs`: solicita cada conjunto de datos que se presenta en los reportes.
 
@@ -53,7 +53,7 @@ Las consultas usan parámetros para enviar los valores a SQL Server por separado
 - `SistemaGestionBiblioteca/Presentacion/FormularioAutores.cs`: muestra la lista y permite registrar, editar y eliminar autores.
 - `SistemaGestionBiblioteca/Presentacion/FormularioEditoriales.cs`: muestra la lista y permite registrar, editar y eliminar editoriales.
 - `SistemaGestionBiblioteca/Presentacion/FormularioUsuarios.cs`: muestra la lista y permite registrar, editar y eliminar usuarios.
-- `SistemaGestionBiblioteca/Presentacion/FormularioLibros.cs`: muestra libros y permite editar su editorial, autores y existencias.
+- `SistemaGestionBiblioteca/Presentacion/FormularioLibros.cs`: muestra y busca libros por código, título, ISBN o autor, y permite editar su editorial, autores y existencias.
 - `SistemaGestionBiblioteca/Presentacion/FormularioPrestamos.cs`: permite seleccionar usuario y libro, registrar el préstamo, registrar su devolución y consultar el historial.
 - `SistemaGestionBiblioteca/Presentacion/FormularioReportes.cs`: contiene pestañas para ver el resumen y las consultas de la biblioteca.
 - `SistemaGestionBiblioteca/Presentacion/EstiloInterfazBiblioteca.cs`: comparte colores, tipografía y formato de botones, campos, pestañas y tablas.
@@ -66,6 +66,8 @@ Los formularios cargan la información al abrirse. Al seleccionar una fila, llen
 - `BaseDatos/02_DatosDemostracionCapturas.sql`: agrega 20 usuarios ficticios y 20 libros de autores colombianos para las capturas. Se puede ejecutar más de una vez sin duplicar esos registros; la editorial indicada es solo de demostración.
 - `Documentacion/ModeloDeDatos.md`: describe las tablas y las relaciones de la base de datos.
 - `Documentacion/Capturas/`: contiene las imágenes de las pantallas y de las operaciones realizadas para la evidencia del proyecto.
+- `Documentacion/DocumentoTecnico.md`: reúne los apartados académicos de la entrega.
+- `Documentacion/InformeDePruebas.md`: registra las verificaciones ejecutadas y las limitaciones del entorno.
 
 El script se puede volver a ejecutar sin volver a crear objetos o registros de ejemplo que ya existen.
 

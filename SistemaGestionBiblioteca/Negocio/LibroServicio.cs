@@ -22,6 +22,26 @@ public sealed class LibroServicio
         return libroRepositorio.ObtenerTodosAsync(tokenCancelacion);
     }
 
+    /// <summary>Filtra los libros por código, título, ISBN o nombre de autor.</summary>
+    public static List<Libro> Buscar(IEnumerable<Libro> libros, string criterio)
+    {
+        ArgumentNullException.ThrowIfNull(libros);
+
+        if (string.IsNullOrWhiteSpace(criterio))
+        {
+            return libros.ToList();
+        }
+
+        string textoBusqueda = criterio.Trim();
+        return libros
+            .Where(libro =>
+                libro.Codigo.Contains(textoBusqueda, StringComparison.CurrentCultureIgnoreCase) ||
+                libro.Titulo.Contains(textoBusqueda, StringComparison.CurrentCultureIgnoreCase) ||
+                (libro.ISBN?.Contains(textoBusqueda, StringComparison.CurrentCultureIgnoreCase) ?? false) ||
+                libro.AutoresTexto.Contains(textoBusqueda, StringComparison.CurrentCultureIgnoreCase))
+            .ToList();
+    }
+
     /// <summary>Valida los datos y registra un libro con sus autores.</summary>
     public Task CrearAsync(
         string codigo,

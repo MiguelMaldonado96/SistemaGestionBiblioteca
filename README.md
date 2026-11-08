@@ -40,6 +40,8 @@ La solución contiene un solo proyecto WinForms. Las carpetas `Presentacion`, `N
 │   └── 02_DatosDemostracionCapturas.sql
 ├── Documentacion/
 │   ├── Capturas/
+│   ├── DocumentoTecnico.md
+│   ├── InformeDePruebas.md
 │   ├── GuiaDelCodigo.md
 │   └── ModeloDeDatos.md
 ├── .gitignore
@@ -51,7 +53,7 @@ La presentación llama a los servicios de negocio, estos aplican validaciones y 
 ## Funcionalidades implementadas
 
 - **Inicio:** navegación entre Inicio, Libros, Usuarios, Autores, Editoriales, Préstamos y Reportes; incluye una prueba de conexión.
-- **Libros:** registrar, listar, editar y eliminar libros; relacionarlos con autores y editoriales, y controlar existencias.
+- **Libros:** registrar, listar, buscar por código, título, ISBN o autor, editar y eliminar libros; relacionarlos con autores y editoriales, y controlar existencias.
 - **Usuarios:** registrar, listar, editar y eliminar usuarios, con validaciones de documento y correo y protección de registros relacionados con préstamos.
 - **Autores:** registrar, listar, editar y eliminar autores, respetando las relaciones con libros.
 - **Editoriales:** registrar, listar, editar y eliminar editoriales, respetando las relaciones con libros.
@@ -92,17 +94,18 @@ dotnet run --project SistemaGestionBiblioteca/SistemaGestionBiblioteca.csproj
 
 - [Guía del código](Documentacion/GuiaDelCodigo.md): explica las capas y los archivos principales.
 - [Modelo de datos](Documentacion/ModeloDeDatos.md): incluye el diagrama entidad-relación y el diccionario de datos.
+- [Documento técnico](Documentacion/DocumentoTecnico.md): reúne los apartados solicitados para la entrega académica.
+- [Informe de pruebas](Documentacion/InformeDePruebas.md): registra los casos ejecutados, resultados y condiciones pendientes del entorno.
 - [Capturas de pantalla](Documentacion/Capturas/): evidencia de los módulos, reportes y registro de una devolución.
 
 ## Estado frente a la consigna
 
-Están implementados los módulos principales, la base de datos relacional, la arquitectura en capas dentro del proyecto, las validaciones, el manejo de errores en la interfaz y los reportes. El repositorio incluye la guía del código, el modelo de datos y las capturas; estos archivos todavía no conforman el documento técnico completo solicitado en el PDF.
+Están implementados los módulos principales, incluida la búsqueda de libros, la base de datos relacional, la arquitectura en capas dentro del proyecto, las validaciones, el manejo de errores en la interfaz y los reportes. El repositorio incluye el documento técnico en Markdown, el informe de pruebas, la guía del código, el modelo de datos y las capturas.
 
-Pendientes para completar todos los requisitos y entregables del PDF:
+Pendientes para cerrar la entrega:
 
-- Agregar búsqueda de libros por código, título o autor; actualmente se pueden consultar y listar, pero no hay un control de búsqueda específico.
-- Preparar el documento técnico en Markdown con las secciones solicitadas: portada y contraportada, introducción, objetivos, tabla de contenido, planteamiento del problema, requerimientos, casos de uso, diagrama de clases, modelo entidad-relación, diccionario de datos, arquitectura, explicación de módulos, conexión a SQL Server, capturas, pruebas, conclusiones, recomendaciones y referencias en formato APA.
-- Incorporar al documento los resultados de las pruebas de funcionamiento. Las capturas actuales muestran pantallas y algunas operaciones, pero no sustituyen por sí solas el informe de pruebas solicitado.
-- Verificar la configuración final contra el entorno de entrega: este equipo usa `localhost`; la consigna de SSMS indica la instancia `.\SQL2022`.
+- Completar los marcadores de datos personales en la portada y contraportada del documento técnico.
+- Exportar el documento al formato solicitado, actualizar la tabla de contenido y añadir numeración automática de páginas.
+- Verificar la conexión y repetir las pruebas en la instancia que se usará para la entrega: este equipo usa `localhost`, mientras que la consigna de SSMS indica `.\SQL2022`.
 
 El repositorio contiene el código fuente, los scripts SQL, esta documentación, las capturas y el historial de commits.
